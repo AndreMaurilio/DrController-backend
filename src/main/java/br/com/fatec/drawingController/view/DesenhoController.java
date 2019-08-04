@@ -26,6 +26,7 @@ import br.com.fatec.drawingController.maquete.MaqueteRepository;
 import br.com.fatec.drawingController.maquete.MaqueteService;
 import br.com.fatec.drawingController.usuario.UsuarioRepository;
 import br.com.fatec.drawingController.usuario.UsuarioService;
+import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
 import br.com.fatec.drawingController.usuario.Usuario;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -104,6 +105,16 @@ public class DesenhoController {
         List<Desenho> desenhos = desenhoService.desenhosPorMaquete(id);
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<List<Desenho>>(desenhos, responseHeaders, HttpStatus.OK);
+
+    }
+
+    @RequestMapping(value = "/graficousuario", method = RequestMethod.GET, produces = {
+            MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<List<BodyDesGraficoDTO>> getGrafico() {
+        List<BodyDesGraficoDTO> bodyDesGraficoDTO = desenhoRepository.bodyGrafico();
+        HttpHeaders responseHeaders = new HttpHeaders();
+        return new ResponseEntity<List<BodyDesGraficoDTO>>(bodyDesGraficoDTO, responseHeaders, HttpStatus.OK);
+
     }
 
 }

@@ -12,6 +12,10 @@ public class MaqueteServiceImp implements MaqueteService {
     @Autowired
     private MaqueteRepository maqueteRepository;
 
+    public void setMaqueteRepository(MaqueteRepository maqueteRepository) {
+        this.maqueteRepository = maqueteRepository;
+    }
+
     @Override
     public boolean save(Maquete maquete) {
         maqueteRepository.save(maquete);

@@ -2,11 +2,11 @@ package br.com.fatec.drawingController.desenho;
 
 import java.util.List;
 import java.util.Date;
-import org.springframework.data.jpa.repository.Query;
 import br.com.fatec.drawingController.desenho.BodyCountStatus;
 
 import br.com.fatec.drawingController.desenho.Desenho;
 import br.com.fatec.drawingController.generic.IGenericServiceCrud;
+import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
 
 public interface DesenhoService extends IGenericServiceCrud<Desenho, Long> {
 
@@ -33,5 +33,8 @@ public interface DesenhoService extends IGenericServiceCrud<Desenho, Long> {
         public BodyCountStatus contagemPorStatus();
 
         public List<Desenho> desenhosPorMaquete(Long numMaquete);
+
+        // Retorna relação Desenhistas e desenhos por Dia
+        public List<BodyDesGraficoDTO> desGrafico();
 
 }

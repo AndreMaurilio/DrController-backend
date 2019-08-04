@@ -14,6 +14,10 @@ public class UsuarioServiceImp implements UsuarioService {
     @Autowired
     public UsuarioRepository usuarioRepository;
 
+    public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
+
     @Override
     public boolean save(Usuario usuario) {
         usuarioRepository.save(usuario);

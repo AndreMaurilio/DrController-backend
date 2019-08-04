@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
 import br.com.fatec.drawingController.usuario.Usuario;
 import br.com.fatec.drawingController.usuario.UsuarioRepository;
 import br.com.fatec.drawingController.maquete.Maquete;
 import br.com.fatec.drawingController.maquete.MaqueteRepository;
 import br.com.fatec.drawingController.maquete.MaqueteService;
-import br.com.fatec.drawingController.usuario.UsuarioService;
 
 @Service
 public class DesenhoServiceImp implements DesenhoService {
@@ -26,10 +26,19 @@ public class DesenhoServiceImp implements DesenhoService {
     private MaqueteRepository maqueteRepository;
 
     @Autowired
-    private UsuarioService usuarioService;
-
-    @Autowired
     private MaqueteService maqueteService;
+
+    public void setDesenhoRepository(DesenhoRepository desenhoRepository) {
+        this.desenhoRepository = desenhoRepository;
+    }
+
+    public void setMaqueteRepository(MaqueteRepository maqueteRepository) {
+        this.maqueteRepository = maqueteRepository;
+    }
+
+    public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     @Override
     public boolean save(Desenho desenho) {
@@ -130,6 +139,12 @@ public class DesenhoServiceImp implements DesenhoService {
     public List<Desenho> desenhosPorMaquete(Long numMaquete) {
 
         return desenhoRepository.buscaPorMaquete(maqueteRepository.findByProjetoNumero(numMaquete));
+    }
+
+    public List<BodyDesGraficoDTO> desGrafico() {
+
+        return desenhoRepository.bodyGrafico();
+
     }
 
 }
