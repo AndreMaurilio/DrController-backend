@@ -24,6 +24,5 @@ br\com\fatec\drawingController\desenho\DesenhoService.class
 br\com\fatec\drawingController\desenho\DesenhoRepository.class
 br\com\fatec\drawingController\view\MaqueteController.class
 br\com\fatec\drawingController\response\ErrorMessage.class
-br\com\fatec\drawingController\usuario\Login.class
 br\com\fatec\drawingController\maquete\Maquete.class
 br\com\fatec\drawingController\maquete\MaqueteServiceImp.class

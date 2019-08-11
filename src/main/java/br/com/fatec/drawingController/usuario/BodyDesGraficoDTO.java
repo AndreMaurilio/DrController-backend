@@ -1,7 +1,5 @@
 package br.com.fatec.drawingController.usuario;
 
-import java.util.Date;
-
 public class BodyDesGraficoDTO {
 
     private String data;

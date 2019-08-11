@@ -74,9 +74,9 @@ public class Usuario implements UserDetails {
     private List<Desenho> desenhos;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "UAU_USUARIO_AUTORIZACAO", joinColumns = { @JoinColumn(name = "USU_ID") }, inverseJoinColumns = {
+    @JoinTable(name = "UAU_USUARIO_AUTORIZACAO", joinColumns = { @JoinColumn(name = "usu_id") }, inverseJoinColumns = {
             @JoinColumn(name = "AUT_ID") })
-    @XmlElement(name = "AUTORIZACAO")
+    @XmlElement(name = "autorizacao")
     private List<Autorizacao> autorizacoes;
 
     public Usuario() {
@@ -158,38 +158,43 @@ public class Usuario implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.autorizacoes;
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
-        return null;
+        return senha;
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
 }

@@ -14,12 +14,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     public Usuario findByIdCad(String idCad);
 
-    public Usuario findByDisciplina(String disciplina);
-    // public List<Usuario>
-    // findByNomeContainsIgnoreCaseOrAutorizacoesNomeContainsIgnoreCase(String nome,
-    // String nomeAutorizacao);
+    public Usuario findByEmail(String email);
 
-    @Query("Select u from Usuario u where u.idCad like %?1%")
+    public Usuario findByDisciplina(String disciplina);
+
+    @Query("Select u from Usuario u where u.idCad like %?1%") // A DEFINIR USO
     public Usuario permiteRegistro(String idCad);
 
     @Query("select u from Usuario u where u.nome like %?1%")

@@ -4,14 +4,14 @@ import java.util.Optional;
 import org.springframework.http.MediaType;
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import javax.servlet.http.HttpServlet;
 import javax.validation.Valid;
 import br.com.fatec.drawingController.desenho.BodyCountStatus;
 import br.com.fatec.drawingController.desenho.BodyDataFinal;
 import br.com.fatec.drawingController.desenho.BodyDesenho;
-import javax.validation.Valid;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -21,13 +21,9 @@ import org.springframework.http.ResponseEntity;
 import br.com.fatec.drawingController.desenho.Desenho;
 import br.com.fatec.drawingController.desenho.DesenhoRepository;
 import br.com.fatec.drawingController.desenho.DesenhoService;
-import br.com.fatec.drawingController.maquete.Maquete;
-import br.com.fatec.drawingController.maquete.MaqueteRepository;
 import br.com.fatec.drawingController.maquete.MaqueteService;
 import br.com.fatec.drawingController.usuario.UsuarioRepository;
-import br.com.fatec.drawingController.usuario.UsuarioService;
 import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
-import br.com.fatec.drawingController.usuario.Usuario;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,7 +47,6 @@ public class DesenhoController {
     MaqueteService maqueteService;
 
     /* ************ Plant3D **************/
-
     @RequestMapping(value = "/savedesenho", method = RequestMethod.POST)
     public ResponseEntity<Desenho> cadastrarDesenho(@Valid @RequestBody BodyDesenho bDesenho,
             UriComponentsBuilder uriComponentsBuilder) {
@@ -90,7 +85,6 @@ public class DesenhoController {
     }
 
     /* ************ WEB **************/
-
     @GetMapping(value = "/contagemstatus", produces = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<BodyCountStatus> atualizaContagemStatus() {
@@ -101,7 +95,6 @@ public class DesenhoController {
     @RequestMapping(value = "/todosdesenhos", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<List<Desenho>> getTodosDesenhos(@Valid @RequestParam("id") Long id) {
-
         List<Desenho> desenhos = desenhoService.desenhosPorMaquete(id);
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<List<Desenho>>(desenhos, responseHeaders, HttpStatus.OK);

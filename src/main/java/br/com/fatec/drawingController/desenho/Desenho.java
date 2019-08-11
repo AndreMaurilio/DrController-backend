@@ -35,9 +35,9 @@ import br.com.fatec.drawingController.maquete.Maquete;
 @Entity
 @SequenceGenerator(name = "hibernate_seq", sequenceName = "hibernate_seq", initialValue = 20, allocationSize = 5)
 @Table(name = "DESENHO")
-public class Desenho implements Serializable {
+public class Desenho {
 
-    private static final long serialVersionUID = 1507218635788384719L;
+    // private static final long serialVersionUID = 1507218635788384719L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_seq")

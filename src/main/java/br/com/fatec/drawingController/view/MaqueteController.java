@@ -1,5 +1,6 @@
 package br.com.fatec.drawingController.view;
 
+import javax.servlet.http.HttpServlet;
 import javax.validation.Valid;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;

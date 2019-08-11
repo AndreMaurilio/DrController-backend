@@ -16,25 +16,25 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import br.com.fatec.drawingController.usuario.Usuario;
 
-
 public class JwtAuthenticationFilter extends GenericFilterBean {
 
     private static String HEADER = "Authorization";
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
         try {
             HttpServletRequest servletRequest = (HttpServletRequest) request;
             String authorization = servletRequest.getHeader(HEADER);
             if (authorization != null) {
                 Usuario usuario = JwtUtils.parseToken(authorization.replaceAll("Bearer ", ""));
-                Authentication credentials = new UsernamePasswordAuthenticationToken(usuario.getUsername(), usuario.getPassword(), usuario.getAuthorities());
+                Authentication credentials = new UsernamePasswordAuthenticationToken(usuario.getUsername(),
+                        usuario.getPassword(), usuario.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(credentials);
             }
             chain.doFilter(request, response);
-        }
-        catch(Throwable t) {
+        } catch (Throwable t) {
             HttpServletResponse servletResponse = (HttpServletResponse) response;
             servletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, t.getMessage());
         }

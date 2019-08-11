@@ -1,7 +1,5 @@
 package br.com.fatec.drawingController.usuario;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,33 +10,23 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 import org.springframework.security.core.GrantedAuthority;
-
-
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
-@Table(name = "AUT_AUTORIZACAO")public class Autorizacao implements GrantedAuthority{
+@Table(name = "AUT_AUTORIZACAO")
+public class Autorizacao implements GrantedAuthority {
 
-    
     private static final long serialVersionUID = 1071136239920166082L;
-    
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="AUT_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "AUT_ID")
     private long id;
 
-
-    @Column(name = "AUT_NOME", unique=true, length = 20, nullable = false)
+    @Column(name = "AUT_NOME", unique = true, length = 20, nullable = false)
     private String nomeAutorizacao;
-
-
-
-
 
     public long getId() {
         return this.id;
@@ -55,18 +43,14 @@ import org.springframework.security.core.GrantedAuthority;
     public void setNomeAutorizacao(String nomeAutorizacao) {
         this.nomeAutorizacao = nomeAutorizacao;
     }
-    
+
     @Override
-	public String getAuthority() {
-		return this.nomeAutorizacao;
-	}
-	
-	public void setAuthority(String authority) {
-		this.nomeAutorizacao = authority;
-	}
+    public String getAuthority() {
+        return this.nomeAutorizacao;
+    }
 
-
+    public void setAuthority(String authority) {
+        this.nomeAutorizacao = authority;
+    }
 
 }
-
-

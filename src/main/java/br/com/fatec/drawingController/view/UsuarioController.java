@@ -2,6 +2,7 @@ package br.com.fatec.drawingController.view;
 
 import javax.servlet.http.HttpServlet;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,6 @@ import javax.validation.Valid;
 import br.com.fatec.drawingController.usuario.Usuario;
 import br.com.fatec.drawingController.usuario.UsuarioService;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin
 @RestController
@@ -35,7 +35,11 @@ public class UsuarioController extends HttpServlet {
     @RequestMapping(value = "/saveusuario", method = RequestMethod.POST)
     public ResponseEntity<Usuario> saveUsuer(@Valid @RequestBody Usuario usuario,
             UriComponentsBuilder uriComponentsBuilder) {
-
+        /*
+         * Usuario usuario = new Usuario(); usuario.setNome(nome);
+         * usuario.setIdCad(idCad); usuario.setDisciplina(disciplina);
+         * usuario.setEmail(email); usuario.setSenha(senha); usuario.setPerfil(perfil);
+         */
         usuario = usuarioService.saveUsuario(usuario);
         HttpHeaders responHeaders = new HttpHeaders();
         responHeaders.setLocation(uriComponentsBuilder.path("/get/" + usuario.getId()).build().toUri());
