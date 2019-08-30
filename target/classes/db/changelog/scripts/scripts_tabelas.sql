@@ -74,6 +74,16 @@ IF NOT EXISTS `tg_bancodedados`.`desenho`
 (100) NULL DEFAULT NULL,
   `des_maquete` BIGINT
 (20) NOT NULL,
+
+`des_pipeservice`VARCHAR
+(100) NULL DEFAULT NULL,
+`des_pipespec`VARCHAR
+(100) NULL DEFAULT NULL,
+`des_pid`VARCHAR
+(100) NULL DEFAULT NULL,
+`des_numfolhas`VARCHAR
+(100) NULL DEFAULT NULL,
+
   `usu_id` BIGINT
 (20) NOT NULL,
   PRIMARY KEY

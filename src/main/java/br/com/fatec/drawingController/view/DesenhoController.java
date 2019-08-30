@@ -54,6 +54,7 @@ public class DesenhoController {
         Desenho desenho = desenhoService.registrarDesenho(bDesenho.getIdCad(), bDesenho.getTag(),
                 bDesenho.getDesContratado(), bDesenho.getDesSubtitulo(), bDesenho.getStatus(), bDesenho.getRevisao(),
                 bDesenho.getDataini(), bDesenho.getDatafim(), bDesenho.getComentarios(), bDesenho.getNomeVerificador(),
+                bDesenho.getPipeService(), bDesenho.getPipeSpec(), bDesenho.getPID(), bDesenho.getNumFolhas(),
                 bDesenho.getMaqueteId());
 
         HttpHeaders responHeaders = new HttpHeaders();

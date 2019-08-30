@@ -81,6 +81,19 @@ public class Desenho {
     @Column(name = "des_verificador")
     private String nomeVerificador;
 
+    // novos campos 26/08/2019
+
+    @Column(name = "des_pipeservice")
+    private String pipeService;
+
+    @Column(name = "des_pipespec")
+    private String pipeSpec;
+
+    @Column(name = "des_pid")
+    private String pID;
+    @Column(name = "des_numfolhas")
+    private int numFolhas;
+
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "projetoNumero")
     @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne(fetch = FetchType.LAZY)
@@ -92,7 +105,7 @@ public class Desenho {
 
     public Desenho(long idDesenho, Usuario usuario, String tag, String desContratado, String desSubtitulo,
             String status, String revisao, Date dataini, Date datafim, String comentarios, String desIdCad,
-            String nomeVerificador, Maquete maquete) {
+            String nomeVerificador, String pipeService, String pipeSpec, String pID, int numFolhas, Maquete maquete) {
         this.idDesenho = idDesenho;
         this.usuario = usuario;
         this.tag = tag;
@@ -105,6 +118,10 @@ public class Desenho {
         this.comentarios = comentarios;
         this.desIdCad = desIdCad;
         this.nomeVerificador = nomeVerificador;
+        this.pipeService = pipeService;
+        this.pipeSpec = pipeSpec;
+        this.pID = pID;
+        this.numFolhas = numFolhas;
         this.maquete = maquete;
     }
 
@@ -277,6 +294,38 @@ public class Desenho {
         return this;
     }
 
+    public String getPipeService() {
+        return this.pipeService;
+    }
+
+    public void setPipeService(String pipeService) {
+        this.pipeService = pipeService;
+    }
+
+    public String getPipeSpec() {
+        return this.pipeSpec;
+    }
+
+    public void setPipeSpec(String pipeSpec) {
+        this.pipeSpec = pipeSpec;
+    }
+
+    public String getPID() {
+        return this.pID;
+    }
+
+    public void setPID(String pID) {
+        this.pID = pID;
+    }
+
+    public int getNumFolhas() {
+        return this.numFolhas;
+    }
+
+    public void setNumFolhas(int numFolhas) {
+        this.numFolhas = numFolhas;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -291,7 +340,10 @@ public class Desenho {
                 && Objects.equals(revisao, desenho.revisao) && Objects.equals(dataini, desenho.dataini)
                 && Objects.equals(datafim, desenho.datafim) && Objects.equals(comentarios, desenho.comentarios)
                 && Objects.equals(desIdCad, desenho.desIdCad)
-                && Objects.equals(nomeVerificador, desenho.nomeVerificador) && Objects.equals(maquete, desenho.maquete);
+                && Objects.equals(nomeVerificador, desenho.nomeVerificador)
+                && Objects.equals(pipeService, desenho.pipeService) && Objects.equals(pipeSpec, desenho.pipeSpec)
+                && Objects.equals(pID, desenho.pID) && numFolhas == desenho.numFolhas
+                && Objects.equals(maquete, desenho.maquete);
     }
 
     @Override
@@ -306,8 +358,9 @@ public class Desenho {
                 + "'" + ", desContratado='" + getDesContratado() + "'" + ", desSubtitulo='" + getDesSubtitulo() + "'"
                 + ", status='" + getStatus() + "'" + ", revisao='" + getRevisao() + "'" + ", dataini='" + getDataini()
                 + "'" + ", datafim='" + getDatafim() + "'" + ", comentarios='" + getComentarios() + "'" + ", desIdCad='"
-                + getDesIdCad() + "'" + ", nomeVerificador='" + getNomeVerificador() + "'" + ", maquete='"
-                + getMaquete() + "'" + "}";
+                + getDesIdCad() + "'" + ", nomeVerificador='" + getNomeVerificador() + "'" + ", pipeService='"
+                + getPipeService() + "'" + ", pipeSpec='" + getPipeSpec() + "'" + ", pID='" + getPID() + "'"
+                + ", numFolhas='" + getNumFolhas() + "'" + ", maquete='" + getMaquete() + "'" + "}";
     }
 
 }

@@ -13,7 +13,8 @@ public interface DesenhoService extends IGenericServiceCrud<Desenho, Long> {
         /********** PLANT3D ************/
         public Desenho registrarDesenho(String idCad, String tag, String desContratado, String desSubtitulo,
                         String status, String revisao, Date dataIni, Date dataFim, String comentarios,
-                        String nomeVerificador, Long idMaq);
+                        String nomeVerificador, String pipeService, String pipeSpec, String pID, int numFolhas,
+                        Long idMaq);
 
         /*
          * public boolean cadastraDesenho(Desenho desenho);

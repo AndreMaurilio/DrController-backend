@@ -88,7 +88,8 @@ public class DesenhoServiceImp implements DesenhoService {
     @Transactional
     @Override
     public Desenho registrarDesenho(String idCad, String tag, String desContratado, String desSubtitulo, String status,
-            String revisao, Date dataIni, Date dataFim, String comentarios, String nomeVerificador, Long idMaq) {
+            String revisao, Date dataIni, Date dataFim, String comentarios, String nomeVerificador, String pipeServ,
+            String pipeSpec, String pID, int numFolha, Long idMaq) {
         try {
             // Optional<Usuario> usuEnt = usuarioService.findById(id);
             Usuario usuario = usuarioRepository.findByIdCad(idCad);
@@ -110,6 +111,10 @@ public class DesenhoServiceImp implements DesenhoService {
             desenho.setDatafim(dataFim);
             desenho.setComentarios(comentarios);
             desenho.setNomeVerificador(nomeVerificador);
+            desenho.setPipeService(pipeServ);
+            desenho.setPipeSpec(pipeSpec);
+            desenho.setPID(pID);
+            desenho.setNumFolhas(numFolha);
 
             return desenhoRepository.save(desenho);
 
