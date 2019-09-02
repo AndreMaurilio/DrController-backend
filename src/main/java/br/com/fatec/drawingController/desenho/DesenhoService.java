@@ -1,6 +1,7 @@
 package br.com.fatec.drawingController.desenho;
 
 import java.util.List;
+import java.text.ParseException;
 import java.util.Date;
 import br.com.fatec.drawingController.desenho.BodyCountStatus;
 
@@ -32,6 +33,10 @@ public interface DesenhoService extends IGenericServiceCrud<Desenho, Long> {
         /*************** WEB *******************/
 
         public BodyCountStatus contagemPorStatus();
+
+        public BodyCountStatus contagemPorStatusSelec(Date dIni, Date dFim);
+
+        public BodyCountStatus contagemPorStatusDEFAULT(Date dIni);
 
         public List<Desenho> desenhosPorMaquete(Long numMaquete);
 

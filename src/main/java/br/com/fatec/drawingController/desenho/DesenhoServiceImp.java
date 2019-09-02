@@ -1,5 +1,7 @@
 package br.com.fatec.drawingController.desenho;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -137,6 +139,28 @@ public class DesenhoServiceImp implements DesenhoService {
         countStatus.setEmitido(desenhoRepository.contagemEmitidos());
         countStatus.setVerificando(desenhoRepository.contagemVerificado());
         countStatus.setCancelado(desenhoRepository.contagemCancelado());
+        return countStatus;
+
+    }
+
+    public BodyCountStatus contagemPorStatusSelec(Date dIni, Date dFim) {
+
+        BodyCountStatus countStatus = new BodyCountStatus();
+        countStatus.setEmitido(desenhoRepository.contagemEmitidoSelec(dIni, dFim));
+        countStatus.setVerificando(desenhoRepository.contagemVerificadoSelec(dIni, dFim));
+        countStatus.setCancelado(desenhoRepository.contagemCanceladoSelec(dIni, dFim));
+        return countStatus;
+
+    }
+
+    public BodyCountStatus contagemPorStatusDEFAULT(Date dIni) {
+
+        BodyCountStatus countStatus = new BodyCountStatus();
+        // Date ini = new SimpleDateFormat("YYYY-MM-DD").parse(dIni);
+
+        countStatus.setEmitido(desenhoRepository.contagemEmitidoDEFAULT(dIni));
+        countStatus.setVerificando(desenhoRepository.contagemVerificadoDEFAULT(dIni));
+        countStatus.setCancelado(desenhoRepository.contagemCanceladoDEFAULT(dIni));
         return countStatus;
 
     }

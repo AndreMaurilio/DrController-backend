@@ -2,9 +2,12 @@ package br.com.fatec.drawingController.view;
 
 import java.util.Optional;
 import org.springframework.http.MediaType;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import java.util.Date;
 import javax.servlet.http.HttpServlet;
 import javax.validation.Valid;
 import br.com.fatec.drawingController.desenho.BodyCountStatus;
@@ -86,9 +89,41 @@ public class DesenhoController {
     }
 
     /* ************ WEB **************/
-    @GetMapping(value = "/contagemstatus", produces = { MediaType.APPLICATION_JSON_VALUE,
+    @GetMapping(value = "/contagemstatustotal", produces = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<BodyCountStatus> atualizaContagemStatus() {
+        BodyCountStatus bodyCountStatus = desenhoService.contagemPorStatus();
+        return new ResponseEntity<BodyCountStatus>(bodyCountStatus, HttpStatus.OK);
+
+    }
+
+    // CONTAGEM COM DATAS SELECIONADAS
+    @GetMapping(value = "/contagemstatus", produces = { MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<BodyCountStatus> atualizaContagemStatusSelc(@Valid @RequestParam("bol") boolean bol,
+            String dIni, String dFim) throws ParseException {
+
+        BodyCountStatus bodyCountStatus = new BodyCountStatus();
+        if (bol == true) {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date dataIni = sdf.parse(dIni);
+            Date dataFim = sdf.parse(dFim);
+            bodyCountStatus = desenhoService.contagemPorStatusSelec(dataIni, dataFim);
+        } else {
+            Date dataIni = new Date();
+            dataIni.setDate(1);
+            bodyCountStatus = desenhoService.contagemPorStatusDEFAULT(dataIni);
+        }
+
+        return new ResponseEntity<BodyCountStatus>(bodyCountStatus, HttpStatus.OK);
+
+    }
+
+    // CONTAGEM COM DATA DEFAULT DO MES VINGENTE
+    @GetMapping(value = "/contagemstatusDEFAULT", produces = { MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<BodyCountStatus> atualizaContagemStatusdefault() {
         BodyCountStatus bodyCountStatus = desenhoService.contagemPorStatus();
         return new ResponseEntity<BodyCountStatus>(bodyCountStatus, HttpStatus.OK);
     }

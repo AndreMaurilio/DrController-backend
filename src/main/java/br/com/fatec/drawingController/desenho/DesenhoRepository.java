@@ -39,7 +39,7 @@ public interface DesenhoRepository extends JpaRepository<Desenho, Long> {
     @Query("Select u from Desenho u where u.tag = ?1")
     public List<Desenho> desDeMesmaTag(String tag);
 
-    /****************** WEB *********/
+    /****************** WEB TOTAL *********/
 
     @Query("Select count(u) as total from Desenho u where u.status like 'EMITIDO'")
     public Long contagemEmitidos();
@@ -52,6 +52,27 @@ public interface DesenhoRepository extends JpaRepository<Desenho, Long> {
 
     @Query("Select u from Desenho u where u.maquete = ?1")
     public List<Desenho> buscaPorMaquete(Maquete numMaquete);
+
+    // CONTAGEM COM SELEÇÃO
+    @Query("Select count(u) as total from Desenho u where u.status like 'EMITIDO' and u.dataini between ?1 and ?2")
+    public Long contagemEmitidoSelec(Date dIni, Date dFim);
+
+    @Query("Select count(u) as total from Desenho u where u.status like 'VERIFICANDO'and u.dataini between ?1 and ?2")
+    public Long contagemVerificadoSelec(Date dIni, Date dFim);
+
+    @Query("Select count(u) as total from Desenho u where u.status like 'CANCELADO' and u.dataini between ?1 and ?2")
+    public Long contagemCanceladoSelec(Date dIni, Date dFim);
+
+    // CONTAGEM DEFAULT
+
+    @Query("Select count(u) as total from Desenho u where u.status like 'EMITIDO' and u.dataini between ?1 and SYSDATE()")
+    public Long contagemEmitidoDEFAULT(Date dIni);
+
+    @Query("Select count(u) as total from Desenho u where u.status like 'VERIFICANDO'and u.dataini between ?1 and SYSDATE()")
+    public Long contagemVerificadoDEFAULT(Date dIni);
+
+    @Query("Select count(u) as total from Desenho u where u.status like 'CANCELADO' and u.dataini between ?1 and SYSDATE()")
+    public Long contagemCanceladoDEFAULT(Date dIni);
 
     /*
      * @Query("Select NEW br.com.fatec.drawingController.usuario.BodyDesGraficoDTO( count(u) as"
