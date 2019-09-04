@@ -12,4 +12,8 @@ public interface MaqueteRepository extends JpaRepository<Maquete, Long> {
 
     public Maquete findByProjetoNome(String projetoNome);
 
+    @Query("Select new br.com.fatec.drawingController.maquete.BodyMaqueBox(u.projetoNumero as numProj, u.projetoNome as nomProj)"
+            + " from Maquete u ")
+    public List<BodyMaqueBox> comboProje();
+
 }

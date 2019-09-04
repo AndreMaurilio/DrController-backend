@@ -132,6 +132,7 @@ public class DesenhoServiceImp implements DesenhoService {
         return desenhoRepository.desDeMesmaTag(tag);
     }
 
+    // ******CONTAGEM SEM SELECAO DE PROJETO******/
     public BodyCountStatus contagemPorStatusSelec(Date dIni, Date dFim) {
 
         BodyCountStatus countStatus = new BodyCountStatus();

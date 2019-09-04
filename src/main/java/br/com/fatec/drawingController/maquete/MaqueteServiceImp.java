@@ -60,4 +60,10 @@ public class MaqueteServiceImp implements MaqueteService {
         return maqueteRepository.findAll();
     }
 
+    @Override
+    public List<BodyMaqueBox> projeCombo() {
+        // TODO Auto-generated method stub
+        return maqueteRepository.comboProje();
+    }
+
 }
