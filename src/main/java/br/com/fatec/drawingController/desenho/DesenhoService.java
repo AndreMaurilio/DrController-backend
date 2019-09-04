@@ -32,12 +32,16 @@ public interface DesenhoService extends IGenericServiceCrud<Desenho, Long> {
 
         /*************** WEB *******************/
 
-        public BodyCountStatus contagemPorStatus();
-
+        // CONTAGEM PO STATUS E CALENDARIO
         public BodyCountStatus contagemPorStatusSelec(Date dIni, Date dFim);
 
+        // CONTAGEM POR STATUS E MES ATUAL
         public BodyCountStatus contagemPorStatusDEFAULT(Date dIni);
 
+        // LISTA POR STATUS E CALENDARIO
+        public List<Desenho> desenhosPorStatusCalend(String status, Date dIni, Date dFim);
+
+        // LISTA TODOS DESENHOS POR PROJETO
         public List<Desenho> desenhosPorMaquete(Long numMaquete);
 
         // Retorna relação Desenhistas e desenhos por Dia

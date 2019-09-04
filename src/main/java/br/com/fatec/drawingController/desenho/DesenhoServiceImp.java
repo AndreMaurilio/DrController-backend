@@ -132,17 +132,6 @@ public class DesenhoServiceImp implements DesenhoService {
         return desenhoRepository.desDeMesmaTag(tag);
     }
 
-    @Override
-    public BodyCountStatus contagemPorStatus() {
-
-        BodyCountStatus countStatus = new BodyCountStatus();
-        countStatus.setEmitido(desenhoRepository.contagemEmitidos());
-        countStatus.setVerificando(desenhoRepository.contagemVerificado());
-        countStatus.setCancelado(desenhoRepository.contagemCancelado());
-        return countStatus;
-
-    }
-
     public BodyCountStatus contagemPorStatusSelec(Date dIni, Date dFim) {
 
         BodyCountStatus countStatus = new BodyCountStatus();
@@ -163,6 +152,16 @@ public class DesenhoServiceImp implements DesenhoService {
         countStatus.setCancelado(desenhoRepository.contagemCanceladoDEFAULT(dIni));
         return countStatus;
 
+    }
+
+    public List<Desenho> desenhosPorStatusCalend(String status, Date dIni, Date dFim) {
+
+        return desenhoRepository.listaPorStatus(status, dIni, dFim);
+    }
+
+    public List<Desenho> desenhosPorStatusMesAtual(String status, Date dIni) {
+
+        return desenhoRepository.listaPorStatusDefault(status, dIni);
     }
 
     public List<Desenho> desenhosPorMaquete(Long numMaquete) {

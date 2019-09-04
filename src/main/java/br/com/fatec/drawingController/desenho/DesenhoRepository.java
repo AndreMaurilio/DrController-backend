@@ -1,7 +1,6 @@
 package br.com.fatec.drawingController.desenho;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -41,19 +40,19 @@ public interface DesenhoRepository extends JpaRepository<Desenho, Long> {
 
     /****************** WEB TOTAL *********/
 
-    @Query("Select count(u) as total from Desenho u where u.status like 'EMITIDO'")
-    public Long contagemEmitidos();
-
-    @Query("Select count(u) as total from Desenho u where u.status like 'VERIFICANDO'")
-    public Long contagemVerificado();
-
-    @Query("Select count(u) as total from Desenho u where u.status like 'CANCELADO'")
-    public Long contagemCancelado();
-
+    // LISTAGEM TOTAL DE DESENHOS NO PROJETO
     @Query("Select u from Desenho u where u.maquete = ?1")
     public List<Desenho> buscaPorMaquete(Maquete numMaquete);
 
-    // CONTAGEM COM SELEÇÃO
+    // LISTAGEM POR STATUS E CALENDARIO
+    @Query("Select u from Desenho u where u.status like ?1 and u.dataini between ?2 and ?3")
+    public List<Desenho> listaPorStatus(String status, Date dIni, Date dFim);
+
+    // LISTAGEM POR STATUS E DATA DEFAULT
+    @Query("Select u from Desenho u where u.status like ?1 and u.dataini between ?2 and SYSDATE()")
+    List<Desenho> listaPorStatusDefault(String status, Date dIni);
+
+    // STATUS CONTAGEM COM SELEÇÃO
     @Query("Select count(u) as total from Desenho u where u.status like 'EMITIDO' and u.dataini between ?1 and ?2")
     public Long contagemEmitidoSelec(Date dIni, Date dFim);
 
@@ -63,7 +62,7 @@ public interface DesenhoRepository extends JpaRepository<Desenho, Long> {
     @Query("Select count(u) as total from Desenho u where u.status like 'CANCELADO' and u.dataini between ?1 and ?2")
     public Long contagemCanceladoSelec(Date dIni, Date dFim);
 
-    // CONTAGEM DEFAULT
+    // STATUS CONTAGEM DEFAULT
 
     @Query("Select count(u) as total from Desenho u where u.status like 'EMITIDO' and u.dataini between ?1 and SYSDATE()")
     public Long contagemEmitidoDEFAULT(Date dIni);

@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.ArrayList;
 import java.util.Date;
 import javax.servlet.http.HttpServlet;
 import javax.validation.Valid;
@@ -89,15 +91,8 @@ public class DesenhoController {
     }
 
     /* ************ WEB **************/
-    @GetMapping(value = "/contagemstatustotal", produces = { MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE })
-    public ResponseEntity<BodyCountStatus> atualizaContagemStatus() {
-        BodyCountStatus bodyCountStatus = desenhoService.contagemPorStatus();
-        return new ResponseEntity<BodyCountStatus>(bodyCountStatus, HttpStatus.OK);
 
-    }
-
-    // CONTAGEM COM DATAS SELECIONADAS
+    // CONTAGEM COM DATAS SELECIONADAS e DEFAULT
     @GetMapping(value = "/contagemstatus", produces = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<BodyCountStatus> atualizaContagemStatusSelc(@Valid @RequestParam("bol") boolean bol,
@@ -120,14 +115,27 @@ public class DesenhoController {
 
     }
 
-    // CONTAGEM COM DATA DEFAULT DO MES VINGENTE
-    @GetMapping(value = "/contagemstatusDEFAULT", produces = { MediaType.APPLICATION_JSON_VALUE,
+    // LISTA POR STATUS E DATAS
+    @GetMapping(value = "/desenhosdatastatus", produces = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE })
-    public ResponseEntity<BodyCountStatus> atualizaContagemStatusdefault() {
-        BodyCountStatus bodyCountStatus = desenhoService.contagemPorStatus();
-        return new ResponseEntity<BodyCountStatus>(bodyCountStatus, HttpStatus.OK);
+    public ResponseEntity<List<Desenho>> getDesenhosStatData(@Valid @RequestParam("bol") boolean bol, String status,
+            String dIni, String dFim) throws ParseException {
+        List<Desenho> desenhos = new ArrayList<Desenho>();
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if (bol == true) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date dataIni = sdf.parse(dIni);
+            Date dataFim = sdf.parse(dFim);
+            desenhos = desenhoRepository.listaPorStatus(status, dataIni, dataFim);
+        } else {
+            Date dataIni = new Date();
+            dataIni.setDate(1);
+            desenhos = desenhoRepository.listaPorStatusDefault(status, dataIni);
+        }
+        return new ResponseEntity<List<Desenho>>(desenhos, responseHeaders, HttpStatus.OK);
     }
 
+    // LISTA TODOS DESENHO NO PROJETO
     @RequestMapping(value = "/todosdesenhos", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<List<Desenho>> getTodosDesenhos(@Valid @RequestParam("id") Long id) {
@@ -137,6 +145,7 @@ public class DesenhoController {
 
     }
 
+    // ALIMENTA GRAFICO DE PROGRESSÃO
     @RequestMapping(value = "/graficousuario", method = RequestMethod.GET, produces = {
             MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<List<BodyDesGraficoDTO>> getGrafico() {
