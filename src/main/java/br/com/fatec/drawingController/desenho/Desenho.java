@@ -33,7 +33,7 @@ import br.com.fatec.drawingController.maquete.Maquete;
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
-@SequenceGenerator(name = "hibernate_seq", sequenceName = "hibernate_seq", initialValue = 20, allocationSize = 5)
+@SequenceGenerator(name = "hibernate_seq", sequenceName = "hibernate_seq", initialValue = 1, allocationSize = 1)
 @Table(name = "DESENHO")
 public class Desenho {
 
@@ -339,7 +339,7 @@ public class Desenho {
                 && Objects.equals(desSubtitulo, desenho.desSubtitulo) && Objects.equals(status, desenho.status)
                 && Objects.equals(revisao, desenho.revisao) && Objects.equals(dataini, desenho.dataini)
                 && Objects.equals(datafim, desenho.datafim) && Objects.equals(comentarios, desenho.comentarios)
-                && Objects.equals(desIdCad, desenho.desIdCad)
+                && Objects.equals(desIdCad, desenho.desIdCad) && Objects.equals(desIdCad, desenho.desIdCad)
                 && Objects.equals(nomeVerificador, desenho.nomeVerificador)
                 && Objects.equals(pipeService, desenho.pipeService) && Objects.equals(pipeSpec, desenho.pipeSpec)
                 && Objects.equals(pID, desenho.pID) && numFolhas == desenho.numFolhas
@@ -358,7 +358,7 @@ public class Desenho {
                 + "'" + ", desContratado='" + getDesContratado() + "'" + ", desSubtitulo='" + getDesSubtitulo() + "'"
                 + ", status='" + getStatus() + "'" + ", revisao='" + getRevisao() + "'" + ", dataini='" + getDataini()
                 + "'" + ", datafim='" + getDatafim() + "'" + ", comentarios='" + getComentarios() + "'" + ", desIdCad='"
-                + getDesIdCad() + "'" + ", nomeVerificador='" + getNomeVerificador() + "'" + ", pipeService='"
+                + getDesIdCad() + "'" + "'" + ", nomeVerificador='" + getNomeVerificador() + "'" + ", pipeService='"
                 + getPipeService() + "'" + ", pipeSpec='" + getPipeSpec() + "'" + ", pID='" + getPID() + "'"
                 + ", numFolhas='" + getNumFolhas() + "'" + ", maquete='" + getMaquete() + "'" + "}";
     }

@@ -68,7 +68,6 @@ public class DesenhoController {
 
     }
 
-    /* ************ Plant3D **************/
     @RequestMapping(value = "/datafinal", method = RequestMethod.POST)
     public ResponseEntity<Desenho> emissaoFinal(@Valid @RequestBody BodyDataFinal bDataFinal,
             UriComponentsBuilder uriComponentsBuilder) {
@@ -80,7 +79,6 @@ public class DesenhoController {
         return new ResponseEntity<Desenho>(desenho, responHeaders, HttpStatus.CREATED);
     }
 
-    /* ************ Plant3D **************/
     @RequestMapping(value = "/feitos", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_PROBLEM_XML_VALUE })
     public ResponseEntity<Iterable<Desenho>> desenhosFeitos(@Valid @RequestParam("tag") String tag) {
@@ -96,41 +94,52 @@ public class DesenhoController {
     @GetMapping(value = "/contagemstatus", produces = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<BodyCountStatus> atualizaContagemStatusSelc(@Valid @RequestParam("bol") boolean bol,
-            String dIni, String dFim) throws ParseException {
+            Long nProj, String dIni, String dFim) throws ParseException {
 
         BodyCountStatus bodyCountStatus = new BodyCountStatus();
-        if (bol == true) {
+        if (nProj == -1) {
+            if (bol == true) {
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date dataIni = sdf.parse(dIni);
-            Date dataFim = sdf.parse(dFim);
-            bodyCountStatus = desenhoService.contagemPorStatusSelec(dataIni, dataFim);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date dataIni = sdf.parse(dIni);
+                Date dataFim = sdf.parse(dFim);
+                bodyCountStatus = desenhoService.contagemPorStatusSelec(dataIni, dataFim);
+            } else {
+                Date dataIni = new Date();
+                dataIni.setDate(1);
+                bodyCountStatus = desenhoService.contagemPorStatusDEFAULT(dataIni);
+            }
         } else {
-            Date dataIni = new Date();
-            dataIni.setDate(1);
-            bodyCountStatus = desenhoService.contagemPorStatusDEFAULT(dataIni);
-        }
+            if (bol == true) {
 
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date dataIni = sdf.parse(dIni);
+                Date dataFim = sdf.parse(dFim);
+                bodyCountStatus = desenhoService.contagemPorProjStatusSelec(nProj, dataIni, dataFim);
+            } else {
+                Date dataIni = new Date();
+                dataIni.setDate(1);
+                bodyCountStatus = desenhoService.contagemPorProjStatusDEFAULT(nProj, dataIni);
+            }
+
+        }
         return new ResponseEntity<BodyCountStatus>(bodyCountStatus, HttpStatus.OK);
 
     }
 
-    // LISTA POR STATUS E DATAS
+    // LISTA POR STATUS E DATAS no campo "VER DETALHES"
     @GetMapping(value = "/desenhosdatastatus", produces = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE })
-    public ResponseEntity<List<Desenho>> getDesenhosStatData(@Valid @RequestParam("bol") boolean bol, String status,
-            String dIni, String dFim) throws ParseException {
+    public ResponseEntity<List<Desenho>> getDesenhosStatData(@Valid @RequestParam("bol") boolean bol, Long nProj,
+            String status, String dIni, String dFim) throws ParseException {
         List<Desenho> desenhos = new ArrayList<Desenho>();
         HttpHeaders responseHeaders = new HttpHeaders();
         if (bol == true) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date dataIni = sdf.parse(dIni);
-            Date dataFim = sdf.parse(dFim);
-            desenhos = desenhoRepository.listaPorStatus(status, dataIni, dataFim);
+
+            desenhos = desenhoService.desenhosPormaqueteVerDetCalend(nProj, status, dIni, dFim);
         } else {
-            Date dataIni = new Date();
-            dataIni.setDate(1);
-            desenhos = desenhoRepository.listaPorStatusDefault(status, dataIni);
+
+            desenhos = desenhoService.desenhosPormaqueteVerDetDEFAULT(nProj, status, dIni);
         }
         return new ResponseEntity<List<Desenho>>(desenhos, responseHeaders, HttpStatus.OK);
     }

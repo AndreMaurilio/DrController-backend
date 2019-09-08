@@ -57,7 +57,7 @@ public class Maquete implements Serializable {
         this.desenhos = new ArrayList();
     }
 
-    public long getProjetoNumero() {
+    public Long getProjetoNumero() {
         return this.projetoNumero;
     }
 

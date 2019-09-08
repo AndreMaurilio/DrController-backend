@@ -27,6 +27,8 @@ public class BodyDesenho {
 
     private String comentarios;
 
+    private String nomeDesenhista;
+
     private String nomeVerificador;
 
     private String pipeService;
@@ -43,8 +45,8 @@ public class BodyDesenho {
     }
 
     public BodyDesenho(String idCad, String tag, String desContratado, String desSubtitulo, String status,
-            String revisao, Date dataini, Date datafim, String comentarios, String nomeVerificador, String pipeService,
-            String pipeSpec, String pID, int numFolhas, long maqueteId) {
+            String revisao, Date dataini, Date datafim, String comentarios, String nomeDesenhista,
+            String nomeVerificador, String pipeService, String pipeSpec, String pID, int numFolhas, long maqueteId) {
         this.idCad = idCad;
         this.tag = tag;
         this.desContratado = desContratado;
@@ -54,6 +56,7 @@ public class BodyDesenho {
         this.dataini = dataini;
         this.datafim = datafim;
         this.comentarios = comentarios;
+        this.nomeDesenhista = nomeDesenhista;
         this.nomeVerificador = nomeVerificador;
         this.pipeService = pipeService;
         this.pipeSpec = pipeSpec;
@@ -132,6 +135,14 @@ public class BodyDesenho {
 
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public String getNomeDesenhista() {
+        return this.nomeDesenhista;
+    }
+
+    public void setNomeDesenhista(String nomeDesenhista) {
+        this.nomeDesenhista = nomeDesenhista;
     }
 
     public String getNomeVerificador() {

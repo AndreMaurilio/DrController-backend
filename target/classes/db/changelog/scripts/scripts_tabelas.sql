@@ -63,7 +63,7 @@ IF NOT EXISTS `tg_bancodedados`.`desenho`
   `des_data_fim` DATE NULL DEFAULT NULL,
   `des_data_ini` DATE NULL DEFAULT NULL,
   `des_verificador` VARCHAR
-(255) NULL DEFAULT NULL,
+(25) NULL DEFAULT NULL,
   `des_status` VARCHAR
 (30) NULL DEFAULT NULL,
   `des_tag` VARCHAR

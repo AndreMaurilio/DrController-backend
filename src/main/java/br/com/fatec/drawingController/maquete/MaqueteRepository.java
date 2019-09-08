@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface MaqueteRepository extends JpaRepository<Maquete, Long> {
 
-    public Maquete findByProjetoNumero(Long projetoNumero);
+    public Maquete findByProjetoNumero(long projetoNumero);
 
     public Maquete findByProjetoNome(String projetoNome);
 

@@ -2,14 +2,14 @@ package br.com.fatec.drawingController.maquete;
 
 public class BodyMaqueBox {
 
-    private long numProj;
+    private Long numProj;
     private String nomProj;
 
     public BodyMaqueBox() {
 
     }
 
-    public BodyMaqueBox(long numProj, String nomProj) {
+    public BodyMaqueBox(Long numProj, String nomProj) {
         this.numProj = numProj;
         this.nomProj = nomProj;
     }
