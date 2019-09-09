@@ -158,7 +158,8 @@ public class DesenhoController {
     @RequestMapping(value = "/graficousuario", method = RequestMethod.GET, produces = {
             MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<List<BodyDesGraficoDTO>> getGrafico() {
-        List<BodyDesGraficoDTO> bodyDesGraficoDTO = desenhoRepository.bodyGrafico();
+        List<BodyDesGraficoDTO> bodyDesGraficoDTO = new ArrayList<BodyDesGraficoDTO>();
+        bodyDesGraficoDTO = desenhoService.desGrafico();
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<List<BodyDesGraficoDTO>>(bodyDesGraficoDTO, responseHeaders, HttpStatus.OK);
 

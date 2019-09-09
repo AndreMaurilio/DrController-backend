@@ -108,18 +108,19 @@ public interface DesenhoRepository extends JpaRepository<Desenho, Long> {
     @Query("Select count(u) as total from Desenho u where u.status like 'CANCELADO' and  u.maquete = ?1 and u.dataini between ?2 and SYSDATE()")
     public Long contagemProjCanceladoDEFAULT(Maquete maque, Date dIni);
 
-    // CONTAGEM POR STATUS GERAL
+    // ************GRAFICO DE PROGRESSÃO************* */
     /*
      * @Query("Select NEW br.com.fatec.drawingController.usuario.BodyDesGraficoDTO( count(u) as"
      * +
      * " documentos , DATE_FORMAT(d.dataini,'%e/%c/%Y'), u.nome, u.id ) From Desenho d JOIN d.usuario u GROUP "
      * + "BY d.dataini,u.nome ")
      */
-    @Query("Select NEW br.com.fatec.drawingController.usuario.BodyDesGraficoDTO(DATE_FORMAT(d.dataini,'%e/%c/%Y') as DATA,"
+    // QUERY DEFAULT
+    @Query("Select NEW br.com.fatec.drawingController.usuario.BodyDesGraficoDTO(DATE_FORMAT(d.dataini,'%Y-%c-%e') as DATA,"
             + "sum(case when d.status = 'EMITIDO' then 1 else 0 END) as EMITIDO,"
             + "sum(case when d.status = 'VERIFICANDO' then 1 else 0 END) as VERIFICANDO,"
-            + "sum(case when d.status = 'CANCELADO' then 1 else 0 END) as CANCELADO)"
-            + "from Desenho d  group by d.dataini")
+            + "sum(case when d.status = 'CANCELADO' then 1 else 0 END) as CANCELADO )"
+            + " from Desenho d  group by d.dataini order by d.dataini")
     List<BodyDesGraficoDTO> bodyGrafico();
 
 }

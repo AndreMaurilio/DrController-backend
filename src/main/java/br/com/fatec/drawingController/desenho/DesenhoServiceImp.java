@@ -202,13 +202,7 @@ public class DesenhoServiceImp implements DesenhoService {
         return desenhoRepository.buscaPorMaquete(maqueteRepository.findByProjetoNumero(numMaquete));
     }
 
-    public List<BodyDesGraficoDTO> desGrafico() {
-
-        return desenhoRepository.bodyGrafico();
-
-    }
-
-    // LISTAGEM PELO CAMPO VER DETALHES COM NUMERO DO PROJETO E SEM, E COM
+    // LISTAGEM PELO CAMPO VER DETALHES COM NUMERO DO PROJETO SEM E COM
     // CALENDARIO
     public List<Desenho> desenhosPormaqueteVerDetCalend(Long maque, String status, String dIni, String dFim)
             throws ParseException {
@@ -244,6 +238,13 @@ public class DesenhoServiceImp implements DesenhoService {
         }
 
         return desenhos;
+    }
+
+    // CARREGA O GRAFICO
+    public List<BodyDesGraficoDTO> desGrafico() {
+
+        return desenhoRepository.bodyGrafico();
+
     }
 
 }

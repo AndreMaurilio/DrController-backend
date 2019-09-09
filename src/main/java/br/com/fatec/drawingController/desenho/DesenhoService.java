@@ -58,7 +58,7 @@ public interface DesenhoService extends IGenericServiceCrud<Desenho, Long> {
         public List<Desenho> desenhosPormaqueteVerDetDEFAULT(Long maque, String Status, String dIni)
                         throws ParseException;
 
-        // Retorna relação Desenhistas e desenhos por Dia
+        // RETORNA GRAFICO DEFAULT
         public List<BodyDesGraficoDTO> desGrafico();
 
 }
