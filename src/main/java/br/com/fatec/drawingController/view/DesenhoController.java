@@ -26,6 +26,8 @@ import org.springframework.http.ResponseEntity;
 import br.com.fatec.drawingController.desenho.Desenho;
 import br.com.fatec.drawingController.desenho.DesenhoRepository;
 import br.com.fatec.drawingController.desenho.DesenhoService;
+import br.com.fatec.drawingController.linha.Linha;
+import br.com.fatec.drawingController.linha.LinhaService;
 import br.com.fatec.drawingController.maquete.MaqueteService;
 import br.com.fatec.drawingController.usuario.UsuarioRepository;
 import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
@@ -51,6 +53,9 @@ public class DesenhoController {
     @Autowired
     MaqueteService maqueteService;
 
+    @Autowired
+    LinhaService linhaService;
+
     /* ************ Plant3D **************/
     @RequestMapping(value = "/savedesenho", method = RequestMethod.POST)
     public ResponseEntity<Desenho> cadastrarDesenho(@Valid @RequestBody BodyDesenho bDesenho,
@@ -71,7 +76,8 @@ public class DesenhoController {
     @RequestMapping(value = "/datafinal", method = RequestMethod.POST)
     public ResponseEntity<Desenho> emissaoFinal(@Valid @RequestBody BodyDataFinal bDataFinal,
             UriComponentsBuilder uriComponentsBuilder) {
-        Desenho desenho = desenhoRepository.findByTagRev(bDataFinal.getReviFinal(), bDataFinal.getTagFinal());
+        Linha linha = linhaService.buscaLinha(bDataFinal.getTagFinal());
+        Desenho desenho = desenhoRepository.findByTagRev(bDataFinal.getReviFinal(), linha);
         desenhoRepository.editEmissaoFinal(bDataFinal.getDataFinal(), bDataFinal.getStatusFinal(),
                 bDataFinal.getComentFinal(), desenho.getIdDesenho());
         HttpHeaders responHeaders = new HttpHeaders();

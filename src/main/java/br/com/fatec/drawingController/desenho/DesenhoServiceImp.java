@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
 import br.com.fatec.drawingController.usuario.Usuario;
 import br.com.fatec.drawingController.usuario.UsuarioRepository;
+import br.com.fatec.drawingController.linha.Linha;
+import br.com.fatec.drawingController.linha.LinhaService;
 import br.com.fatec.drawingController.maquete.Maquete;
 import br.com.fatec.drawingController.maquete.MaqueteRepository;
 import br.com.fatec.drawingController.maquete.MaqueteService;
@@ -30,6 +32,9 @@ public class DesenhoServiceImp implements DesenhoService {
 
     @Autowired
     private MaqueteService maqueteService;
+
+    @Autowired
+    private LinhaService linhaService;
 
     public void setDesenhoRepository(DesenhoRepository desenhoRepository) {
         this.desenhoRepository = desenhoRepository;
@@ -94,7 +99,8 @@ public class DesenhoServiceImp implements DesenhoService {
             String revisao, Date dataIni, Date dataFim, String comentarios, String nomeVerificador, String pipeServ,
             String pipeSpec, String pID, int numFolha, Long idMaq) {
         try {
-            Desenho d = desenhoRepository.findByTagRev(revisao, tag);
+            Linha tags = linhaService.buscaLinha(tag);
+            Desenho d = desenhoRepository.findByTagRev(revisao, tags);
 
             if (d == null) {
                 // Optional<Usuario> usuEnt = usuarioService.findById(id);
@@ -107,7 +113,7 @@ public class DesenhoServiceImp implements DesenhoService {
                 Desenho desenho = new Desenho();
                 desenho.setUsuario(usuario);
                 desenho.setMaquete(maquete);
-                desenho.setTag(tag);
+                desenho.setTag(tags);
                 desenho.setDesContratado(desContratado);
                 desenho.setDesSubtitulo(desSubtitulo);
                 desenho.setDesIdCad(idCad);
@@ -135,8 +141,8 @@ public class DesenhoServiceImp implements DesenhoService {
 
     @Override
     public List<Desenho> mesmaTag(String tag) {
-
-        return desenhoRepository.desDeMesmaTag(tag);
+        Linha tags = linhaService.buscaLinha(tag);
+        return desenhoRepository.desDeMesmaTag(tags);
     }
 
     // ******CONTAGEM SEM SELECAO DE PROJETO CALENDARIO******/

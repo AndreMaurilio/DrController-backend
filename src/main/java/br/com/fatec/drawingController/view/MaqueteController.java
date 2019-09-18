@@ -37,7 +37,7 @@ public class MaqueteController {
         maquete = maqueteService.saveEnt(maquete);
         HttpHeaders responHeaders = new HttpHeaders();
         responHeaders.setLocation(uriComponentsBuilder.path("/get/" + maquete.getProjetoNumero()).build().toUri());
-        return new ResponseEntity<>(maquete, responHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<Maquete>(maquete, responHeaders, HttpStatus.CREATED);
 
     }
 

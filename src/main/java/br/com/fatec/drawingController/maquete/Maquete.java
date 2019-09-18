@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.fatec.drawingController.desenho.Desenho;
+import br.com.fatec.drawingController.linha.Linha;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -52,9 +53,25 @@ public class Maquete implements Serializable {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Desenho> desenhos;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Linha> linhas;
+
     public Maquete() {
 
-        this.desenhos = new ArrayList();
+        this.desenhos = new ArrayList<>();
+        this.linhas = new ArrayList<>();
+    }
+
+    public Maquete(Long projetoNumero, String projetoNome, String projetoCliente, String projetoLocal,
+            String projetoDescricao, Date dataProjeto, List<Desenho> desenhos, List<Linha> linhas) {
+        this.projetoNumero = projetoNumero;
+        this.projetoNome = projetoNome;
+        this.projetoCliente = projetoCliente;
+        this.projetoLocal = projetoLocal;
+        this.projetoDescricao = projetoDescricao;
+        this.dataProjeto = dataProjeto;
+        this.desenhos = desenhos;
+        this.linhas = linhas;
     }
 
     public Long getProjetoNumero() {
@@ -113,6 +130,14 @@ public class Maquete implements Serializable {
         this.desenhos = desenhos;
     }
 
+    public List<Linha> getLinhas() {
+        return this.linhas;
+    }
+
+    public void setLinhas(List<Linha> linhas) {
+        this.linhas = linhas;
+    }
+
     public Maquete projetoNumero(Long projetoNumero) {
         this.projetoNumero = projetoNumero;
         return this;
@@ -125,6 +150,11 @@ public class Maquete implements Serializable {
 
     public Maquete projetoCliente(String projetoCliente) {
         this.projetoCliente = projetoCliente;
+        return this;
+    }
+
+    public Maquete projetoLocal(String projetoLocal) {
+        this.projetoLocal = projetoLocal;
         return this;
     }
 
@@ -143,6 +173,11 @@ public class Maquete implements Serializable {
         return this;
     }
 
+    public Maquete linhas(List<Linha> linhas) {
+        this.linhas = linhas;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -151,22 +186,26 @@ public class Maquete implements Serializable {
             return false;
         }
         Maquete maquete = (Maquete) o;
-        return projetoNumero == maquete.projetoNumero && Objects.equals(projetoNome, maquete.projetoNome)
+        return Objects.equals(projetoNumero, maquete.projetoNumero) && Objects.equals(projetoNome, maquete.projetoNome)
                 && Objects.equals(projetoCliente, maquete.projetoCliente)
+                && Objects.equals(projetoLocal, maquete.projetoLocal)
                 && Objects.equals(projetoDescricao, maquete.projetoDescricao)
-                && Objects.equals(dataProjeto, maquete.dataProjeto) && Objects.equals(desenhos, maquete.desenhos);
+                && Objects.equals(dataProjeto, maquete.dataProjeto) && Objects.equals(desenhos, maquete.desenhos)
+                && Objects.equals(linhas, maquete.linhas);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(projetoNumero, projetoNome, projetoCliente, projetoDescricao, dataProjeto, desenhos);
+        return Objects.hash(projetoNumero, projetoNome, projetoCliente, projetoLocal, projetoDescricao, dataProjeto,
+                desenhos, linhas);
     }
 
     @Override
     public String toString() {
         return "{" + " projetoNumero='" + getProjetoNumero() + "'" + ", projetoNome='" + getProjetoNome() + "'"
-                + ", projetoCliente='" + getProjetoCliente() + "'" + ", projetoDescricao='" + getProjetoDescricao()
-                + "'" + ", dataProjeto='" + getDataProjeto() + "'" + ", desenhos='" + getDesenhos() + "'" + "}";
+                + ", projetoCliente='" + getProjetoCliente() + "'" + ", projetoLocal='" + getProjetoLocal() + "'"
+                + ", projetoDescricao='" + getProjetoDescricao() + "'" + ", dataProjeto='" + getDataProjeto() + "'"
+                + ", desenhos='" + getDesenhos() + "'" + ", linhas='" + getLinhas() + "'" + "}";
     }
 
 }

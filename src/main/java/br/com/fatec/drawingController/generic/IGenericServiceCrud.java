@@ -3,8 +3,6 @@ package br.com.fatec.drawingController.generic;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.Entity;
-
 public interface IGenericServiceCrud<T, L> {
 	public boolean save(T entity);
 

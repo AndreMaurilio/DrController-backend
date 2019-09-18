@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GeneratorType;
 
 import br.com.fatec.drawingController.usuario.Usuario;
+import br.com.fatec.drawingController.linha.Linha;
 import br.com.fatec.drawingController.maquete.Maquete;
 
 @XmlRootElement
@@ -50,8 +51,11 @@ public class Desenho {
     @JoinColumn(name = "usu_id")
     private Usuario usuario;
 
-    @Column(name = "des_tag")
-    private String tag;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "liTag")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JoinColumn(name = "li_tag")
+    private Linha tag;
 
     @Column(name = "des_contratado")
     private String desContratado;
@@ -103,9 +107,9 @@ public class Desenho {
     public Desenho() {
     }
 
-    public Desenho(long idDesenho, Usuario usuario, String tag, String desContratado, String desSubtitulo,
-            String status, String revisao, Date dataini, Date datafim, String comentarios, String desIdCad,
-            String nomeVerificador, String pipeService, String pipeSpec, String pID, int numFolhas, Maquete maquete) {
+    public Desenho(long idDesenho, Usuario usuario, Linha tag, String desContratado, String desSubtitulo, String status,
+            String revisao, Date dataini, Date datafim, String comentarios, String desIdCad, String nomeVerificador,
+            String pipeService, String pipeSpec, String pID, int numFolhas, Maquete maquete) {
         this.idDesenho = idDesenho;
         this.usuario = usuario;
         this.tag = tag;
@@ -141,11 +145,11 @@ public class Desenho {
         this.usuario = usuario;
     }
 
-    public String getTag() {
+    public Linha getTag() {
         return this.tag;
     }
 
-    public void setTag(String tag) {
+    public void setTag(Linha tag) {
         this.tag = tag;
     }
 
@@ -239,7 +243,7 @@ public class Desenho {
         return this;
     }
 
-    public Desenho tag(String tag) {
+    public Desenho tag(Linha tag) {
         this.tag = tag;
         return this;
     }

@@ -7,6 +7,7 @@ import br.com.fatec.drawingController.desenho.BodyCountStatus;
 
 import br.com.fatec.drawingController.desenho.Desenho;
 import br.com.fatec.drawingController.generic.IGenericServiceCrud;
+import br.com.fatec.drawingController.linha.Linha;
 import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
 
 public interface DesenhoService extends IGenericServiceCrud<Desenho, Long> {

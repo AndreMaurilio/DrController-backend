@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset andre:05
+--changeset andre:06
 --comment: Criando a estrutura da tabela Autorizacao
 
 CREATE TABLE
@@ -18,7 +18,7 @@ IF NOT EXISTS `tg_bancodedados`.`aut_autorizacao`
 
 --ROLLBACK drop table AUT_AUTORIZACAO;
 
---changeset andre:06
+--changeset andre:07
 --comment: Criando a estrutura da tabela UAU_USUARIO_AUTORIZACAO
 CREATE TABLE
 IF NOT EXISTS `tg_bancodedados`.`uau_usuario_autorizacao`
@@ -48,7 +48,7 @@ UPDATE CASCADE)ENGINE = InnoDB
 DEFAULT CHARSET=utf8;
 --ROLLBACK drop table UAU_USUARIO_AUTORIZACAO;
 
---changeset andre:07
+--changeset andre:08
 INSERT INTO tg_bancodedados.usuario
   (usu_idcad,usu_disciplina,usu_email,usu_nome,usu_funcao,usu_senha)
 VALUES
@@ -59,7 +59,7 @@ VALUES
 
 --rollback delete from tg_bancodedados.usuario where usu_id=3566;
 
---changeset andre:08
+--changeset andre:09
 INSERT INTO tg_bancodedados.usuario
   (usu_idcad,usu_disciplina,usu_email,usu_nome,usu_funcao,usu_senha)
 VALUES
@@ -69,7 +69,7 @@ VALUES
 
 --rollback delete from tg_bancodedados.usuario where usu_id=8977;
 
---changeset andre:09
+--changeset andre:10
 INSERT INTO tg_bancodedados.USUARIO
   (usu_idcad,usu_disciplina,usu_email,usu_nome,usu_funcao,usu_senha)
 VALUES
@@ -81,7 +81,7 @@ VALUES
 
 
 
---changeset andre:10
+--changeset andre:11
 INSERT INTO tg_bancodedados.AUT_AUTORIZACAO
   (AUT_NOME)
 VALUES
@@ -89,7 +89,7 @@ VALUES
 
 --rollback delete from tg_bancodedados.AUT_AUTORIZACAO where AUT_NOME='ROLE_DESEN';
 
---changeset andre:11
+--changeset andre:12
 INSERT INTO tg_bancodedados.AUT_AUTORIZACAO
   (AUT_NOME)
 VALUES
@@ -97,7 +97,7 @@ VALUES
 
 --rollback delete from tg_bancodedados.AUT_AUTORIZACAO where AUT_NOME='ROLE_SUP';
 
---changeset andre:12
+--changeset andre:13
 INSERT INTO tg_bancodedados.AUT_AUTORIZACAO
   (AUT_NOME)
 VALUES
@@ -105,7 +105,7 @@ VALUES
 
 --rollback delete from tg_bancodedados.AUT_AUTORIZACAO where AUT_NOME='ROLE_ADMIN';
 
---changeset andre:13
+--changeset andre:14
 INSERT INTO tg_bancodedados.UAU_USUARIO_AUTORIZACAO
   (usu_id, AUT_ID)
 SELECT usu_id, AUT_ID
@@ -113,7 +113,7 @@ FROM usuario, AUT_AUTORIZACAO
 WHERE usu_nome = 'Gustavo'
   AND AUT_NOME = 'ROLE_DESEN';
 
---changeset andre:14
+--changeset andre:15
 INSERT INTO tg_bancodedados.UAU_USUARIO_AUTORIZACAO
   (usu_id, AUT_ID)
 SELECT usu_id, AUT_ID
@@ -122,7 +122,7 @@ WHERE usu_nome = 'Murilo'
   and aut_nome ="ROLE_ADMIN"
 ;
 
---changeset andre:15
+--changeset andre:16
 INSERT INTO tg_bancodedados.UAU_USUARIO_AUTORIZACAO
   (usu_id, AUT_ID)
 SELECT usu_id, AUT_ID

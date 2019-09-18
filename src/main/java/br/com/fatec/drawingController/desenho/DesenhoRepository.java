@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.fatec.drawingController.linha.Linha;
 import br.com.fatec.drawingController.maquete.Maquete;
 import br.com.fatec.drawingController.usuario.Usuario;
 import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
@@ -25,11 +26,11 @@ public interface DesenhoRepository extends JpaRepository<Desenho, Long> {
 
     /********** PLANT3D *******************/
     @Query("Select u from Desenho u where u.revisao = ?1 and u.tag = ?2")
-    public Desenho findByTagRev(String rev, String Tag);
+    public Desenho findByTagRev(String rev, Linha Tag);
 
     // CHECA SE EXISTE DESENHO COM MESMA TAG E REV
     @Query("Select u from Desenho u where u.revisao = ?1 and u.tag = ?2")
-    public boolean findByTagRevBol(String rev, String Tag);
+    public boolean findByTagRevBol(String rev, Linha Tag);
 
     @Query("Update Desenho u set u.status = ?1 where u.idDesenho = ?2 ")
     public boolean editStatus(String status, long idDesenho);
@@ -40,7 +41,7 @@ public interface DesenhoRepository extends JpaRepository<Desenho, Long> {
     public void editEmissaoFinal(Date datafim, String status, String comentarioFinal, long idDesenho);
 
     @Query("Select u from Desenho u where u.tag = ?1")
-    public List<Desenho> desDeMesmaTag(String tag);
+    public List<Desenho> desDeMesmaTag(Linha tag);
 
     /****************** WEB *********/
 
