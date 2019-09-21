@@ -124,4 +124,41 @@ public interface DesenhoRepository extends JpaRepository<Desenho, Long> {
             + " from Desenho d  group by d.dataini order by d.dataini")
     List<BodyDesGraficoDTO> bodyGrafico();
 
+    /********* BUSCAS DINAMICAS ************/
+    @Query("Select u from Desenho u where u.maquete = ?1 and u.tag = ?2")
+    public List<Desenho> buscaDeseTag(Maquete maquete, Linha busca);
+
+    @Query("Select u from Desenho u where u.maquete = ?1 and u.desContratado = ?2")
+    public List<Desenho> buscaDeseCont(Maquete maquete, String busca);
+
+    @Query("Select u from Desenho u where u.maquete = ?1 and u.desSubtitulo = ?2")
+    public List<Desenho> buscaDeseSub(Maquete maquete, String busca);
+
+    @Query("Select u from Desenho u where u.maquete = ?1 and u.status = ?2")
+    public List<Desenho> buscaDeseStatus(Maquete maquete, String busca);
+
+    @Query("Select u from Desenho u where u.maquete = ?1 and u.revisao = ?2")
+    public List<Desenho> buscaDeseRev(Maquete maquete, String busca);
+
+    @Query("Select u from Desenho u where u.maquete = ?1 and u.comentarios = ?2")
+    public List<Desenho> buscaDeseComen(Maquete maquete, String busca);
+
+    @Query("Select u from Desenho u where u.maquete = ?1 and u.desIdCad = ?2")
+    public List<Desenho> buscaDeseUs(Maquete maquete, String busca);
+
+    @Query("Select u from Desenho u where u.maquete = ?1 and u.nomeVerificador = ?2")
+    public List<Desenho> buscaDeseVerif(Maquete maquete, String busca);
+
+    @Query("Select u from Desenho u where u.maquete = ?1 and u.pipeService = ?2")
+    public List<Desenho> buscaDesePipSer(Maquete maquete, String busca);
+
+    @Query("Select u from Desenho u where u.maquete = ?1 and u.pipeSpec = ?2")
+    public List<Desenho> buscaDesePipeSpec(Maquete maquete, String busca);
+
+    @Query("Select u from Desenho u where u.maquete = ?1 and u.pID = ?2")
+    public List<Desenho> buscaDesePid(Maquete maquete, String busca);
+
+    @Query("Select u from Desenho u where u.maquete = ?1 and u.tag = ?2")
+    public List<Desenho> buscaDeseNumf(Maquete maquete, Long busca);
+
 }

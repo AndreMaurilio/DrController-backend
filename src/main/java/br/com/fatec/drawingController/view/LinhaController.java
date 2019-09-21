@@ -24,6 +24,7 @@ import br.com.fatec.drawingController.linha.LinhaService;
 import br.com.fatec.drawingController.linha.ListBodyLinha;
 import br.com.fatec.drawingController.maquete.Maquete;
 import br.com.fatec.drawingController.maquete.MaqueteRepository;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @CrossOrigin
 @RestController
@@ -60,6 +61,17 @@ public class LinhaController {
         // linha1.getLiTag()).build().toUri());
         return new ResponseEntity<String>(linhaLote.toString(), HttpStatus.CREATED);
 
+    }
+
+    @GetMapping(value = "/buscarlinhas")
+    public ResponseEntity<List<Linha>> buscarLinhas(@Valid @RequestParam("nProj") Long nProj,
+            @Valid @RequestParam("nCamp") String nCamp, @Valid @RequestParam("nBusca") String nBusca,
+            UriComponentsBuilder uriComponentsBuilder) {
+        List<Linha> linhas = new ArrayList<Linha>();
+        HttpHeaders responHeaders = new HttpHeaders();
+
+        linhas = linhaService.servBuscaLinhas(nProj, nCamp, nBusca);
+        return new ResponseEntity<List<Linha>>(linhas, responHeaders, HttpStatus.OK);
     }
 
 }

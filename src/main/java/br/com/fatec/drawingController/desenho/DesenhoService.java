@@ -8,6 +8,7 @@ import br.com.fatec.drawingController.desenho.BodyCountStatus;
 import br.com.fatec.drawingController.desenho.Desenho;
 import br.com.fatec.drawingController.generic.IGenericServiceCrud;
 import br.com.fatec.drawingController.linha.Linha;
+import br.com.fatec.drawingController.maquete.Maquete;
 import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
 
 public interface DesenhoService extends IGenericServiceCrud<Desenho, Long> {
@@ -61,5 +62,9 @@ public interface DesenhoService extends IGenericServiceCrud<Desenho, Long> {
 
         // RETORNA GRAFICO DEFAULT
         public List<BodyDesGraficoDTO> desGrafico();
+
+        // BUSCA COM COLUNAS DINAMICAS
+
+        public List<Desenho> buscaDeseParams(Long maquete, String nCamp, String busca);
 
 }

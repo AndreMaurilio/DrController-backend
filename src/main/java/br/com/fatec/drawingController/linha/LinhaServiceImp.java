@@ -2,6 +2,7 @@ package br.com.fatec.drawingController.linha;
 
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class LinhaServiceImp implements LinhaService {
 
     @Autowired
     MaqueteRepository maqueteRepository;
+
+    @Autowired
+    EntityManager em;
 
     @Autowired
     MaqueteService maqueteService;
@@ -105,6 +109,40 @@ public class LinhaServiceImp implements LinhaService {
         }
         // TODO Auto-generated method stub
         return linhaLote;
+    }
+
+    @Override
+    public List<Linha> servBuscaLinhas(Long maquete, String nCamp, String busca) {
+        Optional<Maquete> maq = maqueteService.findById(maquete);
+        Maquete mqt = maq.get();
+        List<Linha> linhas = new ArrayList<Linha>();
+
+        switch (nCamp) {
+        case "liTag":
+            linhas = linhaRepository.repBuscaLinhasTag(mqt, busca);
+            break;
+        case "liMaterial":
+            linhas = linhaRepository.repBuscaLinhasMaterial(mqt, busca);
+            break;
+        case "liPendencias":
+            linhas = linhaRepository.repBuscaLinhasPende(mqt, busca);
+            break;
+        case "liFluido":
+            linhas = linhaRepository.repBuscaLinhasFluido(mqt, busca);
+            break;
+        case "liArea":
+            linhas = linhaRepository.repBuscaLinhasArea(mqt, busca);
+            break;
+        case "liSite":
+            linhas = linhaRepository.repBuscaLinhasSite(mqt, busca);
+            break;
+        case "liBimTag":
+            linhas = linhaRepository.repBuscaLinhasBimTag(mqt, busca);
+            break;
+        }
+
+        return linhas;
+
     }
 
 }

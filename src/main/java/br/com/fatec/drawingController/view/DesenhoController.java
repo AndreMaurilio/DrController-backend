@@ -171,4 +171,15 @@ public class DesenhoController {
 
     }
 
+    @GetMapping(value = "/buscardesenhos")
+    public ResponseEntity<List<Desenho>> buscarDesenhos(@Valid @RequestParam("nProj") Long nProj,
+            @Valid @RequestParam("nCamp") String nCamp, @Valid @RequestParam("nBusca") String nBusca,
+            UriComponentsBuilder uriComponentsBuilder) {
+        List<Desenho> desenhos = new ArrayList<Desenho>();
+        HttpHeaders responHeaders = new HttpHeaders();
+
+        desenhos = desenhoService.buscaDeseParams(nProj, nCamp, nBusca);
+        return new ResponseEntity<List<Desenho>>(desenhos, responHeaders, HttpStatus.OK);
+    }
+
 }

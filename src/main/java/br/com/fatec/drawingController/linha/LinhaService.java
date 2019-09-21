@@ -12,4 +12,6 @@ public interface LinhaService extends IGenericServiceCrudString<Linha, String> {
 
     public List<Linha> saveLoteLinha(List<BodyLinha> linhas);
 
+    public List<Linha> servBuscaLinhas(Long maquete, String nCamp, String busca);
+
 }

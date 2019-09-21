@@ -253,4 +253,56 @@ public class DesenhoServiceImp implements DesenhoService {
 
     }
 
+    @Override
+    public List<Desenho> buscaDeseParams(Long maquete, String nCamp, String busca) {
+        Optional<Maquete> maq = maqueteService.findById(maquete);
+        Maquete mqt = maq.get();
+
+        List<Desenho> desenhos = new ArrayList<Desenho>();
+
+        switch (nCamp) {
+        case "tag":
+            Optional<Linha> lin = linhaService.findById(busca);
+            Linha linha = lin.get();
+            desenhos = desenhoRepository.buscaDeseTag(mqt, linha);
+            break;
+        case "desContratado":
+            desenhos = desenhoRepository.buscaDeseCont(mqt, busca);
+            break;
+        case "desSubtitulo":
+            desenhos = desenhoRepository.buscaDeseSub(mqt, busca);
+            break;
+        case "status":
+            desenhos = desenhoRepository.buscaDeseStatus(mqt, busca);
+            break;
+        case "revisao":
+            desenhos = desenhoRepository.buscaDeseRev(mqt, busca);
+            break;
+        case "comentarios":
+            desenhos = desenhoRepository.buscaDeseComen(mqt, busca);
+            break;
+        case "desIdCad":
+            desenhos = desenhoRepository.buscaDeseUs(mqt, busca);
+            break;
+        case "nomeVerificador":
+            desenhos = desenhoRepository.buscaDeseVerif(mqt, busca);
+            break;
+        case "pipeService":
+            desenhos = desenhoRepository.buscaDesePipSer(mqt, busca);
+            break;
+        case "pipeSpec":
+            desenhos = desenhoRepository.buscaDesePipeSpec(mqt, busca);
+            break;
+        case "pID":
+            desenhos = desenhoRepository.buscaDesePid(mqt, busca);
+            break;
+        case "numFolhas":
+            desenhos = desenhoRepository.buscaDesePid(mqt, busca);
+            break;
+
+        }
+
+        return desenhos;
+    }
+
 }
