@@ -1,10 +1,11 @@
 package br.com.fatec.drawingController.usuario;
 
-import java.util.List;
-import java.util.Optional;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,8 @@ public class UsuarioServiceImp implements UsuarioService {
         Optional<Usuario> c = usuarioRepository.findById(usuario.getId());
         if (c.isPresent()) {
             usuarioUpdate.setId(c.get().getId());
+            usuarioUpdate.setSenha(md5(usuario.getSenha()));
+
             usuarioRepository.save(usuarioUpdate);
 
         }
@@ -89,6 +92,12 @@ public class UsuarioServiceImp implements UsuarioService {
             // Unexpected - do nothing
         }
         return senha;
+    }
+
+    @Override
+    public Usuario buscaUsuario(String nome) {
+
+        return usuarioRepository.findByNome(nome);
     }
 
 }

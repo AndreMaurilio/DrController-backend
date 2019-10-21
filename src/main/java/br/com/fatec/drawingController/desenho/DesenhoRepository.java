@@ -2,18 +2,17 @@ package br.com.fatec.drawingController.desenho;
 
 import java.util.Date;
 import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.Modifying;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fatec.drawingController.linha.Linha;
 import br.com.fatec.drawingController.maquete.Maquete;
-import br.com.fatec.drawingController.usuario.Usuario;
 import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
-
-import org.springframework.transaction.annotation.Transactional;
+import br.com.fatec.drawingController.usuario.Usuario;
 
 @Repository
 public interface DesenhoRepository extends JpaRepository<Desenho, Long> {
@@ -121,8 +120,8 @@ public interface DesenhoRepository extends JpaRepository<Desenho, Long> {
             + "sum(case when d.status = 'EMITIDO' then 1 else 0 END) as EMITIDO,"
             + "sum(case when d.status = 'VERIFICANDO' then 1 else 0 END) as VERIFICANDO,"
             + "sum(case when d.status = 'CANCELADO' then 1 else 0 END) as CANCELADO )"
-            + " from Desenho d  group by d.dataini order by d.dataini")
-    List<BodyDesGraficoDTO> bodyGrafico();
+            + " from Desenho d where d.dataini between ?1 and SYSDATE() group by d.dataini order by d.dataini")
+    List<BodyDesGraficoDTO> bodyGrafico(Date dIni);
 
     /********* BUSCAS DINAMICAS ************/
     @Query("Select u from Desenho u where u.maquete = ?1 and u.tag = ?2")

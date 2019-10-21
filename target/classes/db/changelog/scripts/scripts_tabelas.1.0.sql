@@ -54,15 +54,15 @@ IF NOT EXISTS `tg_bancodedados`.`linha`
   `li_tag` VARCHAR
 (100) NOT NULL,
   `li_material` VARCHAR
-(25) NULL,
+(50) NULL,
   `li_pendencias` VARCHAR
 (45) NULL,
 `li_fluido` VARCHAR
-(25) NULL,
+(50) NULL,
 `li_area` VARCHAR
 (45) NULL,
 `li_site` VARCHAR
-(10) NULL,
+(15) NULL,
   `li_bim_tag` VARCHAR
 (45) NULL,
 `maqu_id` BIGINT

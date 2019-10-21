@@ -76,7 +76,7 @@ public class DesenhoController {
     @RequestMapping(value = "/datafinal", method = RequestMethod.POST)
     public ResponseEntity<Desenho> emissaoFinal(@Valid @RequestBody BodyDataFinal bDataFinal,
             UriComponentsBuilder uriComponentsBuilder) {
-        Linha linha = linhaService.buscaLinha(bDataFinal.getTagFinal());
+        Linha linha = linhaService.buscaLinha('"' + bDataFinal.getTagFinal());
         Desenho desenho = desenhoRepository.findByTagRev(bDataFinal.getReviFinal(), linha);
         desenhoRepository.editEmissaoFinal(bDataFinal.getDataFinal(), bDataFinal.getStatusFinal(),
                 bDataFinal.getComentFinal(), desenho.getIdDesenho());

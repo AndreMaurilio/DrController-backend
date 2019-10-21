@@ -3,20 +3,23 @@ package br.com.fatec.drawingController.desenho;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
-import br.com.fatec.drawingController.usuario.Usuario;
-import br.com.fatec.drawingController.usuario.UsuarioRepository;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.fatec.drawingController.linha.Linha;
 import br.com.fatec.drawingController.linha.LinhaService;
 import br.com.fatec.drawingController.maquete.Maquete;
 import br.com.fatec.drawingController.maquete.MaqueteRepository;
 import br.com.fatec.drawingController.maquete.MaqueteService;
+import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
+import br.com.fatec.drawingController.usuario.Usuario;
+import br.com.fatec.drawingController.usuario.UsuarioRepository;
 
 @Service
 public class DesenhoServiceImp implements DesenhoService {
@@ -99,7 +102,7 @@ public class DesenhoServiceImp implements DesenhoService {
             String revisao, Date dataIni, Date dataFim, String comentarios, String nomeVerificador, String pipeServ,
             String pipeSpec, String pID, int numFolha, Long idMaq) {
         try {
-            Linha tags = linhaService.buscaLinha(tag);
+            Linha tags = linhaService.buscaLinha('"' + tag);
             Desenho d = desenhoRepository.findByTagRev(revisao, tags);
 
             if (d == null) {
@@ -141,8 +144,19 @@ public class DesenhoServiceImp implements DesenhoService {
 
     @Override
     public List<Desenho> mesmaTag(String tag) {
-        Linha tags = linhaService.buscaLinha(tag);
-        return desenhoRepository.desDeMesmaTag(tags);
+        Linha tags = linhaService.buscaLinha('"' + tag);
+        List<Desenho> desenhos = desenhoRepository.desDeMesmaTag(tags);
+        List<Desenho> des = new ArrayList<>();
+        for (Desenho desenho : desenhos) {
+            if (desenho.getTag().getLiTag().charAt(0) == '"') {
+                desenho.getTag().setLiTag(desenho.getTag().getLiTag().substring(1));
+                des.add(desenho);
+            } else {
+                des.add(desenho);
+            }
+
+        }
+        return des;
     }
 
     // ******CONTAGEM SEM SELECAO DE PROJETO CALENDARIO******/
@@ -248,8 +262,12 @@ public class DesenhoServiceImp implements DesenhoService {
 
     // CARREGA O GRAFICO
     public List<BodyDesGraficoDTO> desGrafico() {
+        Date dataIni = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(dataIni);
+        c.add(Calendar.MONTH, -6);
 
-        return desenhoRepository.bodyGrafico();
+        return desenhoRepository.bodyGrafico(c.getTime());
 
     }
 
