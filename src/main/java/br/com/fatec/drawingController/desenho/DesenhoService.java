@@ -63,6 +63,8 @@ public interface DesenhoService extends IGenericServiceCrud<Desenho, Long> {
         // RETORNA GRAFICO DEFAULT
         public List<BodyDesGraficoDTO> desGrafico();
 
+        public List<BodyDesGraficoDTO> desGraficoSelect(Long proj, int Data);
+
         // BUSCA COM COLUNAS DINAMICAS
 
         public List<Desenho> buscaDeseParams(Long maquete, String nCamp, String busca);

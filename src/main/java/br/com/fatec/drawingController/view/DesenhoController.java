@@ -1,40 +1,38 @@
 package br.com.fatec.drawingController.view;
 
-import java.util.Optional;
-import org.springframework.http.MediaType;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.ArrayList;
 import java.util.Date;
-import javax.servlet.http.HttpServlet;
+import java.util.List;
+
 import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import br.com.fatec.drawingController.desenho.BodyCountStatus;
 import br.com.fatec.drawingController.desenho.BodyDataFinal;
 import br.com.fatec.drawingController.desenho.BodyDesenho;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.util.UriComponentsBuilder;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import br.com.fatec.drawingController.desenho.Desenho;
 import br.com.fatec.drawingController.desenho.DesenhoRepository;
 import br.com.fatec.drawingController.desenho.DesenhoService;
 import br.com.fatec.drawingController.linha.Linha;
 import br.com.fatec.drawingController.linha.LinhaService;
 import br.com.fatec.drawingController.maquete.MaqueteService;
-import br.com.fatec.drawingController.usuario.UsuarioRepository;
 import br.com.fatec.drawingController.usuario.BodyDesGraficoDTO;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
+import br.com.fatec.drawingController.usuario.UsuarioRepository;
 
 @CrossOrigin
 @RestController
@@ -166,6 +164,17 @@ public class DesenhoController {
     public ResponseEntity<List<BodyDesGraficoDTO>> getGrafico() {
         List<BodyDesGraficoDTO> bodyDesGraficoDTO = new ArrayList<BodyDesGraficoDTO>();
         bodyDesGraficoDTO = desenhoService.desGrafico();
+        HttpHeaders responseHeaders = new HttpHeaders();
+        return new ResponseEntity<List<BodyDesGraficoDTO>>(bodyDesGraficoDTO, responseHeaders, HttpStatus.OK);
+
+    }
+
+    // ALIMENTA GRAFICO DE PROGRESSÃO POR SELECAO
+    @RequestMapping(value = "/graficoselect", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<List<BodyDesGraficoDTO>> getGraficoSelect(@Valid @RequestParam("dIni") int data, Long proj) {
+        List<BodyDesGraficoDTO> bodyDesGraficoDTO = new ArrayList<BodyDesGraficoDTO>();
+        bodyDesGraficoDTO = desenhoService.desGraficoSelect(proj, data);
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<List<BodyDesGraficoDTO>>(bodyDesGraficoDTO, responseHeaders, HttpStatus.OK);
 

@@ -323,4 +323,26 @@ public class DesenhoServiceImp implements DesenhoService {
         return desenhos;
     }
 
+    @Override
+    public List<BodyDesGraficoDTO> desGraficoSelect(Long proj, int dIni) {
+        List<BodyDesGraficoDTO> desenhos = new ArrayList<BodyDesGraficoDTO>();
+        if (proj == -1) {
+            Date dataIni = new Date();
+            Calendar c = Calendar.getInstance();
+            c.setTime(dataIni);
+            c.add(Calendar.MONTH, -dIni);
+            desenhos = desenhoRepository.bodyGraficoSelectDef(c.getTime());
+        } else {
+            Date dataIni = new Date();
+            Calendar c = Calendar.getInstance();
+            c.setTime(dataIni);
+            c.add(Calendar.MONTH, -dIni);
+
+            Maquete maquet = maqueteRepository.findByProjetoNumero(proj);
+            desenhos = desenhoRepository.bodyGraficoSelectProjec(c.getTime(), maquet);
+        }
+
+        return desenhos;
+    }
+
 }
