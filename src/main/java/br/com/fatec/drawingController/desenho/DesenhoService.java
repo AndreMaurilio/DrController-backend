@@ -4,7 +4,7 @@ import java.util.List;
 import java.text.ParseException;
 import java.util.Date;
 import br.com.fatec.drawingController.desenho.BodyCountStatus;
-
+import br.com.fatec.drawingController.desenho.BodyDataFinal;
 import br.com.fatec.drawingController.desenho.Desenho;
 import br.com.fatec.drawingController.generic.IGenericServiceCrud;
 import br.com.fatec.drawingController.linha.Linha;
@@ -18,6 +18,8 @@ public interface DesenhoService extends IGenericServiceCrud<Desenho, Long> {
                         String status, String revisao, Date dataIni, Date dataFim, String comentarios,
                         String nomeVerificador, String pipeService, String pipeSpec, String pID, int numFolhas,
                         Long idMaq);
+
+        public Desenho atualizaDesenho(BodyDataFinal bd);
 
         /*
          * public boolean cadastraDesenho(Desenho desenho);

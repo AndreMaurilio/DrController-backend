@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,10 +51,11 @@ public class UsuarioController extends HttpServlet {
         return new ResponseEntity<>(usuario, responHeaders, HttpStatus.CREATED);
 
     }
-
+    
     @RequestMapping(value = "/buscarusuario", method = RequestMethod.GET)
     public ResponseEntity<Usuario> buscaUsuer(@Valid @RequestParam("buscar") String buscador,
             UriComponentsBuilder uriComponentsBuilder) {
+        SecurityContextHolderAwareRequestWrapper th;
         Usuario usuario = usuarioService.buscaUsuario(buscador);
         HttpHeaders responHeaders = new HttpHeaders();
         responHeaders.setLocation(uriComponentsBuilder.path("/get/" + usuario.getId()).build().toUri());

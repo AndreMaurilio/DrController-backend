@@ -74,11 +74,9 @@ public class DesenhoController {
     @RequestMapping(value = "/datafinal", method = RequestMethod.POST)
     public ResponseEntity<Desenho> emissaoFinal(@Valid @RequestBody BodyDataFinal bDataFinal,
             UriComponentsBuilder uriComponentsBuilder) {
-        Linha linha = linhaService.buscaLinha('"' + bDataFinal.getTagFinal());
-        Desenho desenho = desenhoRepository.findByTagRev(bDataFinal.getReviFinal(), linha);
-        desenhoRepository.editEmissaoFinal(bDataFinal.getDataFinal(), bDataFinal.getStatusFinal(),
-                bDataFinal.getComentFinal(), desenho.getIdDesenho());
+        Desenho desenho = desenhoService.atualizaDesenho(bDataFinal);
         HttpHeaders responHeaders = new HttpHeaders();
+
         responHeaders.setLocation(uriComponentsBuilder.path("/get/" + desenho.getIdDesenho()).build().toUri());
         return new ResponseEntity<Desenho>(desenho, responHeaders, HttpStatus.CREATED);
     }

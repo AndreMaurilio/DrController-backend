@@ -79,11 +79,17 @@ public class Usuario implements UserDetails {
     @XmlElement(name = "autorizacao")
     private List<Autorizacao> autorizacoes;
 
+
+
     public Usuario() {
 
         this.desenhos = new ArrayList<>();
 
     }
+
+
+ 
+
 
     public long getId() {
         return this.id;

@@ -1,10 +1,13 @@
 package br.com.fatec.drawingController.usuario;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -27,6 +30,11 @@ public class Autorizacao implements GrantedAuthority {
 
     @Column(name = "AUT_NOME", unique = true, length = 20, nullable = false)
     private String nomeAutorizacao;
+
+
+
+
+
 
     public long getId() {
         return this.id;

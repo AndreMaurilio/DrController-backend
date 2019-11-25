@@ -2,6 +2,7 @@ C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\linha
 C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\desenho\DesenhoRepository.java
 C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\security\CorsFilterUtil.java
 C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\desenho\DesenhoServiceImp.java
+C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\usuario\AutAutorizacaoRepository.java
 C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\desenho\BodyCountStatus.java
 C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\generic\IGenericServiceCrud.java
 C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\usuario\Usuario.java
@@ -25,6 +26,7 @@ C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\secur
 C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\maquete\MaqueteService.java
 C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\view\LoginController.java
 C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\maquete\BodyMaqueBox.java
+C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\usuario\AutAutorizacao.java
 C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\desenho\DesenhoService.java
 C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\view\MaqueteController.java
 C:\projetos\drawingController\src\main\java\br\com\fatec\drawingController\security\AutorizacaoService.java

@@ -7,16 +7,34 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-@Service
+import br.com.fatec.drawingController.security.AutorizacaoRepository;
+
+@Service("usuarioService")
 public class UsuarioServiceImp implements UsuarioService {
 
     @Autowired
     public UsuarioRepository usuarioRepository;
 
+    @Autowired
+    public AutorizacaoRepository autorizacaoRepository;
+
+    @Autowired
+    public AutAutorizacaoRepository autAutorizacaorepository;
+
+    public void setAutorizaRepository(AutorizacaoRepository autorizacaoRepository) {
+
+        this.autorizacaoRepository = autorizacaoRepository;
+    }
+
     public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
+    }
+
+    public void setAutAutorizacaorepository(AutAutorizacaoRepository autAutorizacaorepository) {
+        this.autAutorizacaorepository = autAutorizacaorepository;
     }
 
     @Override
@@ -69,8 +87,19 @@ public class UsuarioServiceImp implements UsuarioService {
     public Usuario saveUsuario(Usuario usuario) {
 
         usuario.setSenha(md5(usuario.getSenha()));
-        return usuarioRepository.save(usuario);
+        AutAutorizacao aut = new AutAutorizacao();
 
+        Usuario user = usuarioRepository.save(usuario);
+        aut.setUsuario(user.getId());
+        if (user.getPerfil().equals("ADMINISTRADOR")) {
+            aut.setAutorizacao(3L);
+            autAutorizacaorepository.save(aut);
+        } else {
+            aut.setAutorizacao(1L);
+            autAutorizacaorepository.save(aut);
+        }
+
+        return user;
     }
 
     private String md5(String senha) {

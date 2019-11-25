@@ -18,10 +18,12 @@ import br.com.fatec.drawingController.usuario.Usuario;
 import br.com.fatec.drawingController.security.JwtUtils;
 import br.com.fatec.drawingController.security.Login;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Controller;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @CrossOrigin
-@RestController
+@Controller
 public class LoginController {
 
     @Autowired

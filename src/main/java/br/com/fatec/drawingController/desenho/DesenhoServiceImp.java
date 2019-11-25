@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -102,7 +103,8 @@ public class DesenhoServiceImp implements DesenhoService {
             String revisao, Date dataIni, Date dataFim, String comentarios, String nomeVerificador, String pipeServ,
             String pipeSpec, String pID, int numFolha, Long idMaq) {
         try {
-            Linha tags = linhaService.buscaLinha('"' + tag);
+            StringBuilder s = new StringBuilder(tag).insert(tag.indexOf('-'),'"');
+            Linha tags = linhaService.buscaLinha(s.toString());
             Desenho d = desenhoRepository.findByTagRev(revisao, tags);
 
             if (d == null) {
@@ -144,12 +146,13 @@ public class DesenhoServiceImp implements DesenhoService {
 
     @Override
     public List<Desenho> mesmaTag(String tag) {
-        Linha tags = linhaService.buscaLinha('"' + tag);
+        StringBuilder s = new StringBuilder(tag).insert(tag.indexOf('-'), '"');
+        Linha tags = linhaService.buscaLinha(s.toString());
         List<Desenho> desenhos = desenhoRepository.desDeMesmaTag(tags);
         List<Desenho> des = new ArrayList<>();
         for (Desenho desenho : desenhos) {
-            if (desenho.getTag().getLiTag().charAt(0) == '"') {
-                desenho.getTag().setLiTag(desenho.getTag().getLiTag().substring(1));
+            if (desenho.getTag().getLiTag().charAt(1) == '"') {
+                desenho.getTag().setLiTag(desenho.getTag().getLiTag().replace('"',' '));
                 des.add(desenho);
             } else {
                 des.add(desenho);
@@ -343,6 +346,18 @@ public class DesenhoServiceImp implements DesenhoService {
         }
 
         return desenhos;
+    }
+
+    @Override
+    public Desenho atualizaDesenho(BodyDataFinal bd){
+
+        
+        StringBuilder s = new StringBuilder(bd.getTagFinal()).insert(bd.getTagFinal().indexOf('-'), '"');
+        Linha tags = linhaService.buscaLinha(s.toString());
+        Desenho d = desenhoRepository.findByTagRev(bd.getReviFinal(), tags);
+        desenhoRepository.editEmissaoFinal(bd.getDataFinal(), bd.getStatusFinal(), bd.getComentFinal(), d.getIdDesenho());
+        return d;
+
     }
 
 }

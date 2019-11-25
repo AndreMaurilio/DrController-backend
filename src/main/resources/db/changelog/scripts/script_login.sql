@@ -23,6 +23,8 @@ IF NOT EXISTS `tg_bancodedados`.`aut_autorizacao`
 CREATE TABLE
 IF NOT EXISTS `tg_bancodedados`.`uau_usuario_autorizacao`
 (
+  
+
   `usu_id` BIGINT
 (20)  NOT NULL,
   `AUT_ID` BIGINT
