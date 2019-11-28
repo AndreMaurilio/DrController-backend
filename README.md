@@ -12,4 +12,4 @@ as dependencias necessaria para aplicação: Spring Boot, Spring Security,Spring
 ## Requerimentos para o Banco de Dados
 * Mysql ou outro banco de dados SQL.
 
-Se preferir usar outro banco SQL, vera substituir a dependencia MySQL Connector no pom.xml pela dependencia do banco preferido.
+Se preferir usar outro banco SQL, tera substituir a dependencia MySQL Connector no pom.xml pela dependencia do banco preferido.
