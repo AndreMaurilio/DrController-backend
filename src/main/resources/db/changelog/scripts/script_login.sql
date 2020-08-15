@@ -22,8 +22,7 @@ IF NOT EXISTS `tg_bancodedados`.`aut_autorizacao`
 --comment: Criando a estrutura da tabela UAU_USUARIO_AUTORIZACAO
 CREATE TABLE
 IF NOT EXISTS `tg_bancodedados`.`uau_usuario_autorizacao`
-(
-  
+( 
 
   `usu_id` BIGINT
 (20)  NOT NULL,
@@ -72,7 +71,7 @@ VALUES
 --rollback delete from tg_bancodedados.usuario where usu_id=8977;
 
 --changeset andre:10
-INSERT INTO tg_bancodedados.USUARIO
+INSERT INTO tg_bancodedados.usuario
   (usu_idcad,usu_disciplina,usu_email,usu_nome,usu_funcao,usu_senha)
 VALUES
   ('ASUS-ICQ', 'TI', 'muh@petro.com', 'Murilo', 'Administrador', CONCAT
