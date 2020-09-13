@@ -105,8 +105,8 @@ public class DesenhoServiceImp implements DesenhoService {
         try {
             StringBuilder s = new StringBuilder(tag).insert(tag.indexOf('-'),'"');
             Linha tags = linhaService.buscaLinha(s.toString());
-            Desenho d = desenhoRepository.findByTagRev(revisao, tags);
-
+            //Desenho d = desenhoRepository.findByTagRev(revisao, tags);
+            Desenho d = desenhoRepository.findByTagPidRev(tags,pID,revisao);
             if (d == null) {
                 // Optional<Usuario> usuEnt = usuarioService.findById(id);
                 Usuario usuario = usuarioRepository.findByIdCad(idCad);

@@ -27,6 +27,9 @@ public interface DesenhoRepository extends JpaRepository<Desenho, Long> {
         @Query("Select u from Desenho u where u.revisao = ?1 and u.tag = ?2")
         public Desenho findByTagRev(String rev, Linha Tag);
 
+        @Query("Select u from Desenho u where u.tag = ?1 and u.pID = ?2 and u.revisao = ?3")
+        public Desenho findByTagPidRev(Linha tag, String pID,String rev);
+
         // CHECA SE EXISTE DESENHO COM MESMA TAG E REV
         @Query("Select u from Desenho u where u.revisao = ?1 and u.tag = ?2")
         public boolean findByTagRevBol(String rev, Linha Tag);
