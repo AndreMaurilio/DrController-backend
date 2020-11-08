@@ -1,0 +1,87 @@
+version: '3.1'
+
+services:
+
+  docker-mysql:
+    image: mysql:5.7.24    
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    networks: 
+        - drcontroller-network
+    environment:
+      MYSQL_DATABASE: tg_bancodedados
+      MYSQL_USER: fatec 
+      MYSQL_ROOT_PASSWORD: fatec 
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - "3306:3306"
+    expose:
+      # Opens port 3306 on the container
+      - 3306
+        # Where our data will be persisted-
+    volumes:
+      - mysql:/var/lib/mysql
+  # Names our volume
+  drcontroller-backend:
+    build: "./"
+    image: drcontroller-backend
+    restart: always
+    networks: 
+        - drcontroller-network
+        - drcontroller-web 
+    ports:
+      - "8020:8020"
+    expose: 
+      - 8020    
+    links: 
+      - docker-mysql
+    depends_on:
+        - docker-mysql
+    environment: 
+        #SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/tg_bancodedados?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
+        #SPRING_DATASOURCE_USERNAME: fatec
+        #SPRING_DATASOURCE_PASSWORD: fatec
+        #- DBHOST=docker-mysql
+        - spring.datasource.url=jdbc:mysql://docker-mysql:3306/tg_bancodedados?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
+        - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+        - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+        - spring.liquibase.enabled=true
+        - spring.liquibase.changeLog=classpath:/db/changelog/db.changelog-master.xml
+        - spring.liquibase.user=root
+        - spring.liquibase.password=fatec
+        - spring.liquibase.check-change-log-location=true
+    volumes:
+      - drcontroller-backend:/var/lib/drcontroller-backend
+
+  drcontroller-frontend:
+    build: "../../drcontroller-frontend/DrController-frontend/"
+    image: drcontroller-frontend
+    restart: always
+    networks: 
+        - drcontroller-web
+    ports:
+        - "8081:8081"
+    expose:
+        - 8081 
+    volumes:
+        - drcontroller-frontend:/var/lib/drcontroller-frontend       
+
+networks: 
+    drcontroller-network:
+    drcontroller-web:
+
+volumes:
+    mysql:
+    drcontroller-backend:
+    drcontroller-frontend:
+
+
+
+      #sudo docker-compose -f docker-compose-drcontrol.yaml up
+
+
+
+
+#docker run --name mysql-teste -e MYSQL_ROOT_PASSWORD=fatec -d mysql:5.7.24
+
+#docker run -it --network some-network --rm mysql mysql -h mysql-teste -u example-user -p
