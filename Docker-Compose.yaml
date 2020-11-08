@@ -25,6 +25,7 @@ services:
   drcontroller-backend:
     build: "./"
     image: drcontroller-backend
+    container_name: "backend"
     restart: always
     networks: 
         - drcontroller-network
@@ -56,6 +57,7 @@ services:
   drcontroller-frontend:
     build: "../../drcontroller-frontend/DrController-frontend/"
     image: drcontroller-frontend
+    container_name: "frontend"
     restart: always
     networks: 
         - drcontroller-web
