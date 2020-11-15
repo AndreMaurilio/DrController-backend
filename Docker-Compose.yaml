@@ -22,10 +22,11 @@ services:
     volumes:
       - mysql:/var/lib/mysql
   # Names our volume
+
   drcontroller-backend:
     build: "./"
-    image: drcontroller-backend
-    container_name: "backend"
+    image: dr-backend
+    container_name: drcontroller-backend
     restart: always
     networks: 
         - drcontroller-network
@@ -35,14 +36,10 @@ services:
     expose: 
       - 8020    
     links: 
-      - docker-mysql
+        - docker-mysql
     depends_on:
         - docker-mysql
     environment: 
-        #SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/tg_bancodedados?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
-        #SPRING_DATASOURCE_USERNAME: fatec
-        #SPRING_DATASOURCE_PASSWORD: fatec
-        #- DBHOST=docker-mysql
         - spring.datasource.url=jdbc:mysql://docker-mysql:3306/tg_bancodedados?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
         - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
         - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
@@ -55,18 +52,26 @@ services:
       - drcontroller-backend:/var/lib/drcontroller-backend
 
   drcontroller-frontend:
-    build: "../../drcontroller-frontend/DrController-frontend/"
-    image: drcontroller-frontend
-    container_name: "frontend"
+    build:
+        context: ../../drcontroller-frontend/DrController-frontend/
+#        args:             
+#          VUE_APP_BASE_URL: http://192.168.56.101:8020/drcontroll
+    image: dr-frontend
+    container_name: drcontroller-frontend
     restart: always
+#    environment: 
+#        VUE_APP_BASE_URL: "http://${IP_HOST}:8020/drcontroll"
+#        IP_HOST:  
     networks: 
         - drcontroller-web
     ports:
         - "8081:8081"
     expose:
         - 8081 
+    links: 
+        - drcontroller-backend
     volumes:
-        - drcontroller-frontend:/var/lib/drcontroller-frontend       
+        - drcontroller-frontend:/var/lib/drcontroller-frontend    
 
 networks: 
     drcontroller-network:

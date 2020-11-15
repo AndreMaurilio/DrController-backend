@@ -13,7 +13,7 @@ WORKDIR /drcontroller-backend
 
 #RUN mvn clean package -DskipTests
 
-COPY target/drawingController-0.0.1-SNAPSHOT.jar /drcontroller-backend/drcontroller-backend.jar
+COPY --from=build /drcontroller-backend/target/drawingController-0.0.1-SNAPSHOT.jar /drcontroller-backend/drcontroller-backend.jar
 
 EXPOSE 8020
 ENTRYPOINT ["java","-jar","drcontroller-backend.jar"]
