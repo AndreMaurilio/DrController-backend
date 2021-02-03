@@ -103,8 +103,13 @@ public class DesenhoServiceImp implements DesenhoService {
             String revisao, Date dataIni, Date dataFim, String comentarios, String nomeVerificador, String pipeServ,
             String pipeSpec, String pID, int numFolha, Long idMaq) {
         try {
-            StringBuilder s = new StringBuilder(tag).insert(tag.indexOf('-'),'"');
-            Linha tags = linhaService.buscaLinha(s.toString());
+            if(tag.contains("--")){
+                StringBuilder s = new StringBuilder(tag);
+                s.setCharAt(tag.indexOf("--"),'"');
+                tag = s.toString();
+            }
+
+            Linha tags = linhaService.buscaLinha(tag);
             //Desenho d = desenhoRepository.findByTagRev(revisao, tags);
             Desenho d = desenhoRepository.findByTagPidRev(tags,pID,revisao);
             if (d == null) {
@@ -146,8 +151,11 @@ public class DesenhoServiceImp implements DesenhoService {
 
     @Override
     public List<Desenho> mesmaTag(String tag) {
-        StringBuilder s = new StringBuilder(tag).insert(tag.indexOf('-'), '"');
-        Linha tags = linhaService.buscaLinha(s.toString());
+        /*StringBuilder s = new StringBuilder(tag).insert(tag.indexOf('-'), '"');*/
+
+        tag = cleanComas(tag);
+
+        Linha tags = linhaService.buscaLinha(tag);
         List<Desenho> desenhos = desenhoRepository.desDeMesmaTag(tags);
         List<Desenho> des = new ArrayList<>();
         for (Desenho desenho : desenhos) {
@@ -160,6 +168,18 @@ public class DesenhoServiceImp implements DesenhoService {
 
         }
         return des;
+    }
+
+    public String cleanComas(String str){
+
+        if(str.contains("--")){
+            StringBuilder s = new StringBuilder(str);
+            s.setCharAt(str.indexOf("--"),'"');
+            str = s.toString();
+
+            return str;
+        }
+        return str;
     }
 
     // ******CONTAGEM SEM SELECAO DE PROJETO CALENDARIO******/
@@ -351,9 +371,13 @@ public class DesenhoServiceImp implements DesenhoService {
     @Override
     public Desenho atualizaDesenho(BodyDataFinal bd){
 
+        System.out.println("ANTES = "+bd.getStatusFinal()+" - "+ bd.getComentFinal());    
+
+        String str = cleanComas(bd.getTagFinal());
+        /*StringBuilder s = new StringBuilder(bd.getTagFinal()).insert(bd.getTagFinal().indexOf('-'), '"');*/
         
-        StringBuilder s = new StringBuilder(bd.getTagFinal()).insert(bd.getTagFinal().indexOf('-'), '"');
-        Linha tags = linhaService.buscaLinha(s.toString());
+        System.out.println("DEPOIS = "+bd.getStatusFinal()+" - "+ bd.getComentFinal());    
+        Linha tags = linhaService.buscaLinha(str);
         Desenho d = desenhoRepository.findByTagRev(bd.getReviFinal(), tags);
         desenhoRepository.editEmissaoFinal(bd.getDataFinal(), bd.getStatusFinal(), bd.getComentFinal(), d.getIdDesenho());
         return d;
