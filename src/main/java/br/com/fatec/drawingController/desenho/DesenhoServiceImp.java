@@ -378,7 +378,7 @@ public class DesenhoServiceImp implements DesenhoService {
         
         System.out.println("DEPOIS = "+bd.getStatusFinal()+" - "+ bd.getComentFinal());    
         Linha tags = linhaService.buscaLinha(str);
-        Desenho d = desenhoRepository.findByTagRev(bd.getReviFinal(), tags);
+        Desenho d = desenhoRepository.findByTagPidRev(tags,bd.getDesSubtitulo(),bd.getReviFinal());
         desenhoRepository.editEmissaoFinal(bd.getDataFinal(), bd.getStatusFinal(), bd.getComentFinal(), d.getIdDesenho());
         return d;
 

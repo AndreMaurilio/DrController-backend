@@ -9,13 +9,15 @@ public class BodyDataFinal {
     private String tagFinal;
     private String comentFinal;
     private String reviFinal;
+    private String desSubtitulo;
 
-    public BodyDataFinal(Date dataFinal, String statusFinal, String tagFinal, String comentFinal, String reviFinal) {
+    public BodyDataFinal(Date dataFinal, String statusFinal, String tagFinal, String comentFinal, String reviFinal, String desSubtitulo) {
         this.dataFinal = dataFinal;
         this.statusFinal = statusFinal;
         this.tagFinal = tagFinal;
         this.comentFinal = comentFinal;
         this.reviFinal = reviFinal;
+        this.desSubtitulo = desSubtitulo;
     }
 
     public Date getDataFinal() {
@@ -56,6 +58,14 @@ public class BodyDataFinal {
 
     public void setReviFinal(String reviFinal) {
         this.reviFinal = reviFinal;
+    }
+
+    public String getDesSubtitulo() {
+        return this.desSubtitulo;
+    }
+
+    public void setDesSubtitulol(String tagFinal) {
+        this.desSubtitulo = tagFinal;
     }
 
 }
