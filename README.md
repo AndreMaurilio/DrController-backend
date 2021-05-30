@@ -1,6 +1,6 @@
 # DrController-backend
 
- Backend do controlador de emissão de desenhos CAD,consome e envia requisições no formato JSON.
+ Backend do controlador de desenhos de projetos CAD.
 
 ## Requerimentos para build do projeto:
 * jdk 1.8
